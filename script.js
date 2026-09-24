@@ -21,9 +21,20 @@ const L_CART=MODO==='orcamento'?'ver pedido':'ver carrinho';
    --------------------------------------------------------- */
 const DEFAULT_LOGO='img/BDS.png';
 const PHOTO={
+  // Fotografias-modelo (cor = primeira cor do produto; nas outras cores usa o desenho)
+  polo:    {src:'img/modelo-polo.jpg',   x:64, y:35, w:11, color:'#ffffff'},
+  tshirt:  {src:'img/modelo-tshirt.jpg', x:50, y:35, w:22, color:'#ffffff'},
+  hoodie:  {src:'img/modelo-sweat.jpg',  x:50, y:40, w:22, color:'#111827'},
+  cap:     {src:'img/modelo-bone.jpg',   x:46, y:40, w:20, color:'#111827'},
+  vest:    {src:'img/modelo-colete.jpg', x:62, y:36, w:11, color:'#111827'},
+  shirt:   {src:'img/modelo-camisa.jpg', x:37, y:36, w:11, color:'#ffffff'},
   bottle:  {src:'img/Garrafa_transparente.jpg', x:50, y:60, w:17, color:'#e8f1f8'},
   keychain:{src:'img/Chaveiro_vinilico.png',    x:45, y:58, w:40, color:'#ffffff'}
 };
+// verifica que fotografias existem na pasta img/ (as que faltam usam o desenho)
+const PHOTO_OK=new Set();
+for(const id in PHOTO){const im=new Image();im.onload=()=>{PHOTO_OK.add(id);
+  if(typeof S!=='undefined'&&S.cfg&&S.cfg.pid===id&&S.is3d&&S.pref3d!==true){S.is3d=false;apply3D();renderBuilder(true)}};im.src=PHOTO[id].src}
 
 /* ---------------------------------------------------------
    VÍDEOS (Reels)
@@ -48,7 +59,7 @@ const VIDEOS=[
    Valores de exemplo: a BDS define os preços reais.
    --------------------------------------------------------- */
 const PROMOS=[
-  {id:'novembro',nome:'Novembro Maluco',sub:'5 produtos, 5 preços loucos',inicio:'2026-11-01T00:00:00',fim:'2026-11-30T23:59:59',cor:'#ffc629',
+  {id:'novembro',nome:'Novembro Lançamento',sub:'5 produtos, 5 preços loucos',inicio:'2026-11-01T00:00:00',fim:'2026-11-30T23:59:59',cor:'#ffc629',
    itens:[{pid:'tshirt',preco:2.99,min:25},{pid:'mug',preco:1.99,min:36},{pid:'bottle',preco:4.99,min:25},{pid:'tote',preco:1.29,min:50},{pid:'keychain',preco:0.59,min:100}]},
   {id:'natal',nome:'Natal Corporativo',sub:'Ofertas para equipas e clientes',inicio:'2026-12-01T00:00:00',fim:'2026-12-20T23:59:59',cor:'#ff3d8b',
    itens:[{pid:'pen',preco:0.69,min:100,cor:'#facc15'},{pid:'cooler',preco:2.99,min:50},{pid:'bottle',preco:5.49,min:25},{pid:'polo',preco:9.90,min:25},{pid:'hoodie',preco:16.90,min:20}]},
@@ -117,7 +128,7 @@ const ICONS={
 const SERVICES=[
   {t:'Têxteis personalizados',ic:'shirt',col:'var(--c)',s:'T-shirts, polos e sweats com a sua marca, da unidade à grande tiragem.',d:{'Técnicas':'DTF, serigrafia, bordado','Mínimo':'1 unidade (DTF)','Prazo':'3 a 7 dias úteis','Ideal para':'equipas, eventos, merchandising'}},
   {t:'Fardamento profissional',ic:'uniform',col:'var(--m)',s:'Camisas, aventais e coletes para restauração, hotelaria e indústria.',d:{'Técnicas':'Bordado, DTF','Extra':'nome individual por colaborador','Prazo':'5 a 8 dias úteis','Ideal para':'restaurantes, hotéis, oficinas'}},
-  {t:'Brindes corporativos',ic:'gift',col:'var(--y)',s:'Canetas, garrafas, canecas e sacos térmicos que ficam na memória.',d:{'Técnicas':'Laser, UV, serigrafia','Mínimo':'desde 25 unidades','Prazo':'3 a 7 dias úteis','Ideal para':'feiras, campanhas, ofertas'}},
+  {t:'Brindes corporativos',ic:'gift',col:'var(--y-ink)',s:'Canetas, garrafas, canecas e sacos térmicos que ficam na memória.',d:{'Técnicas':'Laser, UV, serigrafia','Mínimo':'desde 25 unidades','Prazo':'3 a 7 dias úteis','Ideal para':'feiras, campanhas, ofertas'}},
   {t:'Bordado',ic:'needle',col:'#8b7bff',s:'O acabamento mais nobre e duradouro para polos, bonés e coletes.',d:{'Preparação':'digitalização da arte incluída','Durabilidade':'excelente, resiste a lavagens industriais','Prazo':'5 a 7 dias úteis','Ideal para':'imagem corporativa premium'}},
   {t:'Gravação laser',ic:'bolt',col:'var(--ok)',s:'Marcação permanente em metal, madeira, vidro e acrílico.',d:{'Materiais':'metal, madeira, vidro, pele','Durabilidade':'permanente','Prazo':'2 a 4 dias úteis','Ideal para':'canetas, garrafas, placas'}},
   {t:'Design & branding',ic:'pen',col:'#ff8a3d',s:'Criamos ou vetorizamos o seu logótipo e preparamos os ficheiros.',d:{'Inclui':'vetorização, mockups, provas','Formato':'AI, SVG, PDF','Prazo':'1 a 3 dias úteis','Ideal para':'marcas novas ou a renovar'}}
@@ -275,7 +286,48 @@ document.addEventListener('pointermove',e=>{
 /* =========================================================
    INÍCIO + SERVIÇOS
    ========================================================= */
+/* =========================================================
+   PORTFÓLIO / TRABALHOS REALIZADOS
+   Uma linha por fotografia real (pasta img/trabalhos/):
+   {src:'img/trabalhos/polos-bordados.webp', produto:'Polo', tecnica:'Bordado', legenda:'Polos para a equipa de sala'}
+   Opcional: cliente:'Nome' (só com autorização da empresa)
+   ========================================================= */
+const TRABALHOS=[
+  // {src:'img/trabalhos/exemplo.webp', produto:'Polo', tecnica:'Bordado', legenda:'Descrição curta', cliente:''},
+];
+let trabFiltro='Todos';
+function renderTrabalhos(){
+  const grid=$('trabGrid'),filtros=$('trabFiltros');
+  grid.replaceChildren();filtros.replaceChildren();
+  // Sem fotografias: mostra 8 espaços reservados
+  if(TRABALHOS.length===0){
+    for(let i=0;i<8;i++){const v=document.createElement('div');v.className='trab-vazio';v.textContent='Fotografia em breve';grid.appendChild(v)}
+    return;
+  }
+  // Filtros criados a partir das técnicas existentes nos dados
+  const tecnicas=['Todos'];
+  for(const t of TRABALHOS){if(t.tecnica&&!tecnicas.includes(t.tecnica))tecnicas.push(t.tecnica)}
+  if(tecnicas.length>2){
+    for(const t of tecnicas){const b=document.createElement('button');b.type='button';b.textContent=t;b.dataset.f=t;if(t===trabFiltro)b.classList.add('on');filtros.appendChild(b)}
+  }
+  TRABALHOS.forEach((t,i)=>{
+    if(trabFiltro!=='Todos'&&t.tecnica!==trabFiltro)return;
+    const fig=document.createElement('figure');fig.className='trab-item';fig.dataset.i=i;
+    if(t.tecnica)fig.dataset.tecnica=t.tecnica;
+    const img=document.createElement('img');img.src=t.src;img.alt=(t.produto||'Trabalho')+' personalizado'+(t.tecnica?' · '+t.tecnica:'');img.loading='lazy';
+    const cap=document.createElement('figcaption');
+    const b=document.createElement('b');b.textContent=t.produto||'';cap.appendChild(b);
+    if(t.legenda)cap.append(t.legenda);
+    if(t.cliente){const s=document.createElement('small');s.textContent=' · '+t.cliente;cap.appendChild(s)}
+    fig.append(img,cap);grid.appendChild(fig);
+  });
+}
+$('trabFiltros').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;trabFiltro=b.dataset.f;renderTrabalhos()});
+$('trabGrid').addEventListener('click',e=>{const f=e.target.closest('.trab-item');if(!f)return;const t=TRABALHOS[+f.dataset.i];
+  $('lbImg').src=t.src;$('lbCap').textContent=[t.produto,t.tecnica,t.legenda,t.cliente].filter(Boolean).join(' · ');$('lb').classList.add('on')});
+
 function renderHome(){
+  renderTrabalhos();
   $('svcHome').innerHTML=SERVICES.map(s=>`<div class="card svc reveal" data-tilt data-go="servicos" style="--ic:${s.col}"><div class="ico lift">${icon(s.ic)}</div><h3>${s.t}</h3><p>${s.s}</p><span class="more">Saber mais →</span></div>`).join('');
   const imgs=PORTFOLIO.map(p=>`<img src="${IMG[p.img]}" alt="${esc(p.t)}" loading="lazy">`).join('');
   $('mtrack').innerHTML=imgs+imgs;
@@ -345,7 +397,7 @@ function renderBuilder(full){
   const pct=Math.min(100,r.q/250*100);$('tbFill').style.width=pct+'%';
   const next=TIERS.find(t=>t.min>r.q);
   $('tbMsg').innerHTML=next?`Faltam <b>${next.min-r.q}</b> peças para desbloquear <b>−${Math.round(next.d*100)}%</b> no produto`:`<span style="color:var(--ok)">✓ Melhor escalão de preço desbloqueado</span>`;
-  if(c.promo){const P=PROMOS.find(x=>x.id===c.promo),it=P&&P.itens.find(i=>i.pid===c.pid);if(it)$('tbMsg').innerHTML=r.promo?`<span style="color:var(--y)">★ Preço ${esc(P.nome)} ativo: ${eur(it.preco)}/un.</span>`:`Para o preço ${esc(P.nome)} (${eur(it.preco)}/un.): mínimo ${it.min} peças${c.positions.length!==1?' e só 1 posição':''}`}
+  if(c.promo){const P=PROMOS.find(x=>x.id===c.promo),it=P&&P.itens.find(i=>i.pid===c.pid);if(it)$('tbMsg').innerHTML=r.promo?`<span style="color:var(--y-ink)">★ Preço ${esc(P.nome)} ativo: ${eur(it.preco)}/un.</span>`:`Para o preço ${esc(P.nome)} (${eur(it.preco)}/un.): mínimo ${it.min} peças${c.positions.length!==1?' e só 1 posição':''}`}
   if(c.names){const n=c.namesList.split('\n').map(s=>s.trim()).filter(Boolean).length;$('namesHint').className='fhint '+(n===r.q?'ok':'');$('namesHint').textContent=`${n} de ${r.q} nomes preenchidos`+(n===r.q?' ✓':'');}else $('namesHint').textContent='';
   $('pTotal').textContent=eur(r.total);$('pUnit').textContent=eur(r.unit);
   if(r.promo)$('pBreak').innerHTML=`<div class="rw"><span class="muted">Preço ${esc(r.promo.nome)} · ${r.q} × ${eur(r.promo.preco)}</span><span>${eur(r.promo.preco*r.q)}</span></div>${r.names?`<div class="rw"><span class="muted">Nomes individuais · ${r.q} × 2,00 €</span><span>${eur(r.names)}</span></div>`:''}${r.express?`<div class="rw"><span class="muted">Produção expresso (+20%)</span><span>${eur(r.express)}</span></div>`:''}<div class="rw save"><span>Poupança face ao preço normal</span><span>−${eur(r.save)}</span></div><div class="rw"><span class="muted">IVA 23%</span><span>${eur(r.iva)}</span></div><div class="rw tot"><span>Total</span><span>${eur(r.total)}</span></div>`;
@@ -440,7 +492,7 @@ function renderCart(){
   if(S.step===2){
     V.innerHTML=`<div class="cart-grid"><div><p class="muted" style="margin-top:0">Confirme cada pré-visualização. Se preferir, a nossa equipa de design ajusta a arte sem custo e envia uma prova final por email.</p>
     ${S.cart.map(i=>{const p=prod(i.pid),hasB=i.positions.some(k=>POS[p.shape][k].v==='b');const a=S.art[i.uid]||{};return `<div class="card art"><div class="mk">${mock(i.pid,i.color,'f',i)}</div><div class="mk">${hasB?mock(i.pid,i.color,'b',i):`<span class="faint" style="font-size:12px;text-align:center;padding:10px">${esc(p.n)}<br>${i.positions.join(' + ')}</span>`}</div>
-      <div class="ac"><h3 style="font-size:16px">${esc(p.n)} · ${calc(i).q} peças</h3>${i.logo?'':'<p style="color:var(--y);font-size:13px;margin:4px 0 8px">Sem logótipo: pode enviá-lo depois por email.</p>'}
+      <div class="ac"><h3 style="font-size:16px">${esc(p.n)} · ${calc(i).q} peças</h3>${i.logo?'':'<p style="color:var(--y-ink);font-size:13px;margin:4px 0 8px">Sem logótipo: pode enviá-lo depois por email.</p>'}
       <label class="radio-card"><input type="radio" name="art${i.uid}" value="ok" ${a.v==='ok'?'checked':''}><span>Aprovo esta pré-visualização<small>segue diretamente para produção</small></span></label>
       <label class="radio-card"><input type="radio" name="art${i.uid}" value="adj" ${a.v==='adj'?'checked':''}><span>Pedir ajuste à equipa<small>sem custo · prova final por email</small></span></label>
       <textarea data-artnote="${i.uid}" placeholder="Notas para o designer (opcional)" style="min-height:60px;display:${a.v==='adj'?'block':'none'}">${esc(a.note||'')}</textarea></div></div>`}).join('')}
@@ -678,7 +730,7 @@ const FLOWS=[
   {id:'f9',d:'M595 300 L595 232',c:'#ff3d8b',l:'vídeos',lx:602,ly:272}
 ];
 function buildDiagram(){
-  let s=`<svg viewBox="0 0 1000 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagrama do ciclo de integração das APIs"><text x="20" y="22" style="fill:#5f6a82;font:700 11px Barlow,sans-serif;letter-spacing:1.5px">FORNECEDORES E PARCEIROS</text>`;
+  let s=`<svg viewBox="0 0 1000 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagrama do ciclo de integração das APIs"><text x="20" y="22" style="fill:#5f6a82;font:700 11px Instrument Sans,sans-serif;letter-spacing:1.5px">FORNECEDORES E PARCEIROS</text>`;
   FLOWS.forEach((f,i)=>{s+=`<g class="flow" id="${f.id}" style="--fc:${f.c}"><path id="${f.id}p" d="${f.d}"/><text x="${f.lx}" y="${f.ly}">${f.l}</text><circle r="4.5" style="fill:${f.c}"><animateMotion dur="${2.2+(i%3)*.4}s" repeatCount="indefinite"><mpath href="#${f.id}p"/></animateMotion></circle></g>`});
   FSUP.forEach((n,i)=>{const y=34+i*58;s+=`<g class="node nF"><rect x="20" y="${y}" width="170" height="48" rx="12"/><text x="34" y="${y+21}">${n[0]}</text><text class="s" x="34" y="${y+37}">${n[1]}</text></g>`});
   NODES.forEach(n=>{s+=`<g class="node ${n.k}"><rect x="${n.x}" y="${n.y}" width="${n.w}" height="${n.h}" rx="14"/><text x="${n.x+16}" y="${n.y+n.h/2-3}">${n.t}</text><text class="s" x="${n.x+16}" y="${n.y+n.h/2+15}">${n.s}</text></g>`});
@@ -1166,7 +1218,8 @@ document.addEventListener('click',e=>{
 $('pgCat').addEventListener('click',()=>{S.cf={q:'',cats:[prod(S.cfg.pid).cat],max:25,tech:[],fav:false,sort:'rel'}},true);
 $('b3d').addEventListener('click',()=>{S.pref3d=S.is3d;$('b3d').textContent=S.is3d?'Ver 2D':'Ver 3D'});
 const _selectProduct=selectProduct;
-selectProduct=function(pid,cfg){const sh=prod(pid).shape;if(S.pref3d!==false&&V3.ok&&can3D(sh))S.is3d=true;V3.key='';S.ptab='desc';_selectProduct(pid,cfg)};
+// com fotografia-modelo disponível, o personalizador abre na fotografia (2D); o 3D fica no botão
+selectProduct=function(pid,cfg){const sh=prod(pid).shape;if(PHOTO_OK.has(pid)&&S.pref3d!==true)S.is3d=false;else if(S.pref3d!==false&&V3.ok&&can3D(sh))S.is3d=true;V3.key='';S.ptab='desc';_selectProduct(pid,cfg)};
 function renderPTabs(){
   const p=prod(S.cfg.pid),rv=S.reviews[p.id]||[],info=INFO[p.id];
   const tabs=[['desc','Descrição'],['spec','Especificações'],['pers','Personalização'],['rev',`Avaliações (${rv.length})`]];
@@ -1448,7 +1501,8 @@ S.defLogo=DEFAULT_LOGO;
 function isDef(src){return !!src&&(src===DEFAULT_LOGO||src===S.defLogo)}
 function photoMock(id,cfg){
   const ph=PHOTO[id],lg=cfg&&cfg.logo,sc=(cfg&&cfg.scale)||1;
-  return `<div class="phm"><img class="phb" src="${ph.src}" alt="${esc(prod(id).n)}" loading="lazy" onerror="this.parentNode.classList.add('noimg')">${lg?`<img class="phl" src="${lg}" alt="" style="left:${ph.x}%;top:${ph.y}%;width:${ph.w*sc}%">`:''}</div>`;
+  // se a fotografia ainda não existir na pasta img/, mostra o desenho do produto no lugar
+  return `<div class="phm"><div class="phm-alt">${mock(id,ph.color,'f',cfg)}</div><img class="phb" src="${ph.src}" alt="${esc(prod(id).n)}" loading="lazy" onerror="this.parentNode.classList.add('noimg')">${lg?`<img class="phl" src="${lg}" alt="" style="left:${ph.x}%;top:${ph.y}%;width:${ph.w*sc}%">`:''}</div>`;
 }
 function visual(id,cfg,view){
   const ph=PHOTO[id];
