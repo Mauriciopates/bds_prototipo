@@ -244,7 +244,7 @@ function go(tab){
 }
 document.addEventListener('click',e=>{
   const g=e.target.closest('[data-go]');if(g){e.preventDefault();go(g.dataset.go);return}
-  const s=e.target.closest('[data-scroll]');if(s){e.preventDefault();$(s.dataset.scroll).scrollIntoView({behavior:'smooth'});return}
+  const s=e.target.closest('[data-scroll]');if(s){e.preventDefault();if(s.dataset.scroll==='contacto'){openContact();return}$(s.dataset.scroll).scrollIntoView({behavior:'smooth'});return}
   if(e.target.closest('[data-nolink]'))e.preventDefault();
 });
 const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');if(en.target.querySelector('[data-count]'))count(en.target.querySelector('[data-count]'));io.unobserve(en.target)}}),{threshold:.15});
@@ -536,6 +536,9 @@ function ctSubmit(e){
 }
 $('ctForm').addEventListener('submit',ctSubmit);
 const ctHTML=$('ctBox').innerHTML;
+function openContact(){const c=$('contacto');if(typeof closeDD==='function')closeDD();c.classList.remove('ct-hidden');c.classList.remove('ct-in');void c.offsetWidth;c.classList.add('ct-in');setTimeout(()=>window.scrollTo({top:c.getBoundingClientRect().top+scrollY-130,behavior:'smooth'}),30)}
+function closeContact(){const c=$('contacto');c.classList.add('ct-hidden');c.classList.remove('ct-in')}
+document.addEventListener('click',e=>{if(e.target.id==='ctClose')closeContact()});
 function restoreCt(){if(!$('ctForm')){$('ctBox').innerHTML=ctHTML;$('ctForm').addEventListener('submit',ctSubmit)}}
 $('ctBox').addEventListener('click',e=>{if(e.target.id==='ctAgain')restoreCt()});
 
@@ -1097,7 +1100,13 @@ const doSearch=()=>{S.cf={q:$('q').value.trim(),cats:[],max:25,tech:[],fav:false
 $('q').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();if(e.key==='Escape')$('sugg').classList.remove('on')});
 $('qGo').addEventListener('click',doSearch);
 document.addEventListener('click',e=>{if(e.target.id==='qAll'){doSearch();return}if(!e.target.closest('.search'))$('sugg').classList.remove('on');if(e.target.closest('#sugg [data-pick]')){$('sugg').classList.remove('on');$('q').value=''}});
-$('hAcc').addEventListener('click',()=>toast('Área de cliente: histórico de encomendas, logótipos guardados e "repetir encomenda" (próxima fase)'));
+/* ---------- Funcionalidades ainda não ativas: aviso "Brevemente" ---------- */
+const SOON={acc:{t:'Área de cliente',d:'Estamos a preparar a sua área de cliente: histórico de encomendas, logótipos guardados e repetir encomendas com um clique.'}};
+function openSoon(k){const x=SOON[k]||{t:'Nova funcionalidade',d:'Esta área está em desenvolvimento.'};$('soonT').textContent=x.t;$('soonD').textContent=x.d;$('soon').classList.add('on')}
+function closeSoon(){$('soon').classList.remove('on')}
+$('hAcc').addEventListener('click',()=>openSoon('acc'));
+document.addEventListener('click',e=>{const d=e.target.closest('[data-soon]');if(d){e.preventDefault();openSoon(d.dataset.soon);return}if(e.target.id==='soon'||e.target.closest('[data-soon-x]'))closeSoon();if(e.target.closest('#soonQ')){closeSoon();openQuote(false)}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSoon()});
 $('hFav').addEventListener('click',()=>{S.cf={q:'',cats:[],max:25,tech:[],fav:true,sort:'rel'};go('catalogo')});
 $('quickQ').addEventListener('click',()=>openQuote($('t-loja').classList.contains('on')));
 
@@ -1316,7 +1325,7 @@ const EMPRESA={
   cp:'[código postal a preencher] Rio Tinto (Gondomar)',
   email:'sales@bluedigital.store',
   tel:'+351 910 377 586',
-  horario:'[horário a preencher]',
+  horario:'segunda a sexta, das 09:30 às 18:30 (sábado e domingo encerrado)',
   capital:'[a preencher]',
   registo:'[Conservatória do Registo Comercial a preencher]'
 };
@@ -1358,7 +1367,7 @@ const LEGAL={
     <h4>Trocas e devoluções</h4><p>Artigos <b>não personalizados</b>: 14 dias para devolução, em estado novo e na embalagem original. Artigos <b>personalizados</b>: não admitem devolução por arrependimento (artigo 17.º do Decreto-Lei n.º 24/2014), mas defeitos de produção são sempre corrigidos pela BDS.</p>`},
   reclamacoes:{t:'Livro de Reclamações e resolução de litígios',h:()=>`
     <h4>Livro de Reclamações Eletrónico</h4><p>Pode apresentar uma reclamação no Livro de Reclamações Eletrónico, disponível em <a href="https://www.livroreclamacoes.pt/Inicio/" target="_blank" rel="noopener">www.livroreclamacoes.pt</a>. Nas nossas instalações existe também o livro em formato físico.</p>
-    <p><a class="lrbadge big" href="https://www.livroreclamacoes.pt/Inicio/" target="_blank" rel="noopener"><span>Livro de</span><b>Reclamações</b></a></p>
+    <p><a class="lrimg big" href="https://www.livroreclamacoes.pt/Inicio/" target="_blank" rel="noopener"><img src="img/livro_reclamacoes.png" alt="Livro de Reclamações Eletrónico" onerror="this.parentNode.classList.add(\'lrbadge\');this.parentNode.innerHTML=\'<span>Livro de</span><b>Reclamações</b>\'"></a></p>
     <h4>Resolução alternativa de litígios (RAL)</h4><p>Em caso de litígio de consumo, o consumidor pode recorrer à entidade de resolução alternativa de litígios competente:</p>
     <div class="ral"><b>CICAP – Centro de Informação de Consumo e Arbitragem do Porto</b><br>Rua Damião de Góis, 31, Loja 6, 4050-225 Porto<br>Tel.: 22 550 83 49 · cicap@cicap.pt · <a href="https://cicap.pt" target="_blank" rel="noopener">cicap.pt</a></div>
     <p>Mais informação e a lista de entidades RAL em <a href="https://www.consumidor.gov.pt" target="_blank" rel="noopener">www.consumidor.gov.pt</a>.</p>`},
