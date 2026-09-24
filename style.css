@@ -982,3 +982,30 @@ a.ci:hover .go{color:var(--c)}
 .phm.noimg{background:var(--img-bg)}
 .phm.noimg .phb,.phm.noimg .phl{display:none}
 .phm.noimg .phm-alt{display:flex}
+
+/* =========================================================
+   TELEMÓVEL: destaque inicial em dois blocos
+   (fotografia em cima, texto por baixo sobre fundo liso)
+   ========================================================= */
+@media (max-width:640px){
+  .tb-r a[href^="mailto"],.tb-r .tb-sep{display:none}
+  .tb-in{min-height:32px;font-size:12.5px}
+
+  .hs{height:auto!important;border-bottom:0}
+  .hs::before,.hs::after{display:none}
+  .slide{position:absolute;top:0;left:0;right:0;flex-direction:column;align-items:stretch;background-image:none!important}
+  .slide.on{position:relative}
+  /* a fotografia do slide passa a ser uma faixa no topo (pseudo-elemento) */
+  .slide::before{content:"";display:block;height:230px;background:var(--foto) 70% center/cover no-repeat;border-bottom:1px solid var(--line)}
+  .slide .sl-in{padding-top:22px;padding-bottom:56px}
+  .slide .eyebrow{font-size:10px;letter-spacing:.18em;gap:10px}
+  .slide .eyebrow::before{width:22px}
+  .hs .slide h1{font-size:40px;margin-top:12px;line-height:1.02}
+  .slide .lead{font-size:15px;line-height:1.55;margin:12px 0 20px}
+  .slide .cta{display:grid;grid-template-columns:1fr;gap:10px}
+  .slide .cta .btn{width:100%;font-size:12.5px;padding:13px 16px}
+  .slide .cta .btn.gho{background:transparent;color:var(--text);border:1px solid var(--text)}
+  .hs-dots{bottom:22px}
+  .wa{width:52px;height:52px;right:14px;bottom:14px}
+  .wa svg{width:26px;height:26px}
+}

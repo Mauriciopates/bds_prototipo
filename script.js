@@ -46,8 +46,12 @@ for(const id in PHOTO){const im=new Image();im.onload=()=>{PHOTO_OK.add(id);
    Opcional: cor:'#111827'  tecnica:'Bordado' | 'DTF' | 'Serigrafia' | 'Laser' | 'UV'
    --------------------------------------------------------- */
 const VIDEOS=[
-  // {src:'videos/polos-rimo.mp4', cap:'Polos bordados para a equipa RIMO #bds-polo', cor:'#facc15', tecnica:'Bordado'},
-  // {src:'videos/coletes.mp4',    cap:'Coletes com a marca nas costas #bds-colete'},
+  {src:'videos/reel-1-polos.mp4',       cap:'Polos personalizados para equipas #bds-polo',                    cor:'#facc15', tecnica:'Bordado'},
+  {src:'videos/reel-2-coletes.mp4',     cap:'Coletes com a marca à frente e nas costas #bds-colete',         cor:'#111827', tecnica:'DTF'},
+  {src:'videos/reel-3-fardamento.mp4',  cap:'Fardamento completo para restauração #bds-camisa',              cor:'#ffffff', tecnica:'Bordado'},
+  {src:'videos/reel-4-bones.mp4',       cap:'Bonés bordados com o símbolo da marca #bds-bone',               cor:'#111827', tecnica:'Bordado'},
+  {src:'videos/reel-5-tshirts.mp4',     cap:'T-shirts estampadas na prensa, prontas a entregar #bds-tshirt', cor:'#ffffff', tecnica:'DTF'},
+  {src:'videos/reel-6-brindes.mp4',     cap:'Brindes personalizados para campanhas #bds-caneca',             cor:'#ffffff', tecnica:'UV'},
 ];
 
 
@@ -660,7 +664,8 @@ function reelCard(r,i){return `<div class="reel" data-reel="${i}"><div class="rm
   <div class="rside">${[IC_HEART,IC_BUB,IC_SEND].map(p=>`<svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linejoin="round">${p}</svg>`).join('')}</div>
   <div class="rcap">${capHTML(r.cap)}</div><button class="btn pri want" data-want="${i}">Quero um assim →</button></div>`}
 function renderReels(){const h=REELS.map(reelCard).join('');$('reelsHome').innerHTML=h;$('reelsPf').innerHTML=h;watchVideos();railUpd('reelsHome');railUpd('reelsPf')}
-function watchVideos(){document.querySelectorAll('.rmedia video').forEach(v=>v.addEventListener('error',()=>{v.parentNode.innerHTML=`<div class="verr">Não foi possível reproduzir o vídeo<small>${esc(v.getAttribute('src'))}</small></div>`},{once:true}))}
+// vídeo em falta na pasta videos/: o cartão é retirado do feed em vez de mostrar erro
+function watchVideos(){document.querySelectorAll('.rmedia video').forEach(v=>v.addEventListener('error',()=>{const card=v.closest('.reel');if(card)card.remove()},{once:true}))}
 function loadVideos(){VIDEOS.slice().reverse().forEach(v=>{const m=(v.cap||'').match(/#bds-[\w-]+/i),pid=(m&&HASHTAG[m[0].toLowerCase()])||v.produto||'tshirt',p=prod(pid);REELS.unshift({video:v.src,cap:v.cap||'',pid,color:v.cor||p.cores[0],tech:v.tecnica||p.techs[0]})})}
 function want(i){closeRV();const r=REELS[i];S.editing=null;go('loja');selectProduct(r.pid,reelCfg(r));setTimeout(()=>$('stage').scrollIntoView({behavior:'smooth',block:'center'}),80);toast('Configuração do vídeo carregada. Só falta o seu logótipo')}
 let RVi=0,RVt=null;
