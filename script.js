@@ -13,6 +13,19 @@ const L_ADD=MODO==='orcamento'?'Adicionar ao orçamento':'Adicionar ao carrinho'
 const L_CART=MODO==='orcamento'?'ver pedido':'ver carrinho';
 
 /* ---------------------------------------------------------
+   LOGÓTIPO DE EXEMPLO E FOTOGRAFIAS-MODELO
+   DEFAULT_LOGO aparece centrado em todos os produtos até o
+   cliente carregar o seu. PHOTO usa uma fotografia real como
+   modelo: x e y = centro do logótipo (% da imagem),
+   w = largura do logótipo (% da imagem). Ajuste à vontade.
+   --------------------------------------------------------- */
+const DEFAULT_LOGO='img/BDS.png';
+const PHOTO={
+  bottle:  {src:'img/Garrafa_transparente.jpg', x:50, y:60, w:17, color:'#e8f1f8'},
+  keychain:{src:'img/Chaveiro_vinilico.png',    x:45, y:58, w:40, color:'#ffffff'}
+};
+
+/* ---------------------------------------------------------
    VÍDEOS (Reels)
    1. Coloque os ficheiros .mp4 na pasta "videos"
    2. Acrescente uma linha por vídeo na lista abaixo
@@ -57,7 +70,7 @@ const TECH={
 };
 const TIERS=[{min:1,d:0},{min:25,d:.06},{min:50,d:.1},{min:100,d:.15},{min:250,d:.2},{min:500,d:.24}];
 const SIZES=['XS','S','M','L','XL','XXL'];
-const CN={'#ffffff':'Branco','#111827':'Preto','#1e3a8a':'Azul marinho','#facc15':'Amarelo','#dc2626':'Vermelho','#15803d':'Verde','#9ca3af':'Cinza','#7f1d1d':'Bordeaux','#dbeafe':'Azul claro','#b8e3d6':'Verde menta','#94a3b8':'Cinza azulado','#f5f0e6':'Cru','#e5e7eb':'Inox'};
+const CN={'#ffffff':'Branco','#111827':'Preto','#1e3a8a':'Azul marinho','#facc15':'Amarelo','#dc2626':'Vermelho','#15803d':'Verde','#9ca3af':'Cinza','#7f1d1d':'Bordeaux','#dbeafe':'Azul claro','#b8e3d6':'Verde menta','#94a3b8':'Cinza azulado','#f5f0e6':'Cru','#e5e7eb':'Inox','#e8f1f8':'Transparente'};
 const TEX=['#ffffff','#111827','#1e3a8a','#facc15','#dc2626','#15803d','#9ca3af'];
 const PRODUCTS=[
   {id:'polo',  n:'Polo piqué 210 g',        cat:'Têxteis',    src:'Fornecedor A · API', base:7.90, cores:TEX, techs:['Bordado','DTF'], shape:'polo', sizes:true, img:'polo'},
@@ -70,8 +83,8 @@ const PRODUCTS=[
   {id:'cooler',n:'Saco térmico',            cat:'Brindes',    src:'Fornecedor B · XML', base:4.20, cores:['#b8e3d6','#94a3b8','#1e3a8a','#111827'], techs:['Serigrafia','DTF'], shape:'cooler', img:'sacos'},
   {id:'tote',  n:'Saco tote algodão',       cat:'Brindes',    src:'Stock próprio',      base:1.80, cores:['#f5f0e6','#111827','#1e3a8a'], techs:['Serigrafia','DTF'], shape:'tote'},
   {id:'mug',   n:'Caneca cerâmica 330 ml',  cat:'Brindes',    src:'Fornecedor B · XML', base:2.40, cores:['#ffffff','#111827','#1e3a8a','#dc2626'], techs:['UV','Laser'], shape:'mug'},
-  {id:'bottle',n:'Garrafa térmica 500 ml',  cat:'Brindes',    src:'Fornecedor A · API', base:6.50, cores:['#e5e7eb','#111827','#1e3a8a','#15803d'], techs:['Laser','UV'], shape:'bottle'},
-  {id:'keychain',n:'Porta-chaves acrílico', cat:'Brindes',    src:'Stock próprio',      base:0.60, cores:['#ffffff','#111827','#1e3a8a','#dc2626'], techs:['UV','Laser'], shape:'keychain'},
+  {id:'bottle',n:'Garrafa transparente 500 ml',cat:'Brindes',  src:'Fornecedor A · API', base:6.50, cores:['#e8f1f8','#111827','#1e3a8a','#15803d'], techs:['Laser','UV'], shape:'bottle'},
+  {id:'keychain',n:'Porta-chaves vinílico', cat:'Brindes',    src:'Stock próprio',      base:0.60, cores:['#ffffff','#111827','#1e3a8a','#dc2626'], techs:['UV','Laser'], shape:'keychain'},
   {id:'pen',   n:'Caneta metálica touch',   cat:'Escritório', src:'Fornecedor A · API', base:0.85, cores:['#facc15','#111827','#1e3a8a','#dc2626','#9ca3af'], techs:['Laser','UV'], shape:'pen', img:'canetas'}
 ];
 // posições: v = vista (f frente / b costas), r = área [x,y,w,h], k = fator de custo
@@ -88,7 +101,7 @@ const POS={
   mug:{Frente:{v:'f',r:[62,82,56,56],k:1}},
   bottle:{Frente:{v:'f',r:[84,88,32,52],k:1}},
   pen:{Corpo:{v:'f',r:[68,93,62,14],k:1}},
-  keychain:{Frente:{v:'f',r:[70,98,60,60],k:1}}
+  keychain:{Frente:{v:'f',r:[66,80,68,68],k:1}}
 };
 const BACKS=['tshirt','polo','hoodie','vest','shirt'];
 const COMPLEMENT={polo:['cap','vest','pen'],tshirt:['cap','tote','mug'],hoodie:['cap','bottle','tshirt'],vest:['polo','cap','pen'],shirt:['apron','vest','pen'],apron:['shirt','cap','mug'],cap:['polo','tshirt','bottle'],cooler:['bottle','tote','pen'],tote:['bottle','pen','mug'],mug:['pen','bottle','tote'],bottle:['cooler','pen','tote'],pen:['mug','bottle','tote'],keychain:['pen','mug','tote']};
@@ -174,7 +187,7 @@ function base(shape,c,v){
     case 'tote':{const s2=isDark(c)?s:'#b8ad97';return `<path d="M78 72 Q78 30 100 30 Q122 30 122 72" fill="none" stroke="${s2}" stroke-width="6"/><rect x="50" y="68" width="100" height="116" rx="4" fill="${c}" stroke="${s2}" stroke-width="2"/>`;}
     case 'mug':return `<path d="M142 88 Q178 88 178 116 Q178 144 142 144" fill="none" stroke="${s}" stroke-width="13"/><path d="M142 88 Q178 88 178 116 Q178 144 142 144" fill="none" stroke="${c}" stroke-width="9"/><rect x="48" y="64" width="96" height="112" rx="10" fill="${c}" ${L}/><ellipse cx="96" cy="67" rx="46" ry="6" fill="rgba(0,0,0,.1)"/>`;
     case 'bottle':return `<rect x="86" y="22" width="28" height="22" rx="4" fill="#9ca3af" stroke="rgba(0,0,0,.3)" stroke-width="2"/><rect x="78" y="44" width="44" height="140" rx="16" fill="${c}" ${L}/><rect x="84" y="52" width="6" height="120" rx="3" fill="rgba(255,255,255,.3)"/>`;
-    case 'keychain':return `<circle cx="100" cy="44" r="15" fill="none" stroke="#cbd5e1" stroke-width="5"/><rect x="95" y="57" width="10" height="20" rx="3" fill="#cbd5e1"/><rect x="62" y="74" width="76" height="100" rx="18" fill="${c}" ${L}/><circle cx="100" cy="86" r="4" fill="rgba(0,0,0,.3)"/>`;
+    case 'keychain':return `<circle cx="100" cy="36" r="16" fill="none" stroke="#cbd5e1" stroke-width="5"/><circle cx="100" cy="112" r="62" fill="${c}" ${L}/><circle cx="100" cy="60" r="4" fill="rgba(0,0,0,.3)"/>`;
     case 'pen':return `<g transform="rotate(-30 100 100)"><rect x="40" y="91" width="120" height="18" rx="9" fill="${c}" ${L}/><path d="M160 93 L184 100 L160 107 Z" fill="#cbd5e1"/><rect x="44" y="83" width="42" height="5" rx="2" fill="#cbd5e1"/><rect x="146" y="91" width="4" height="18" fill="#cbd5e1"/><circle cx="36" cy="100" r="7" fill="#1f2937"/></g>`;
   }
   return '';
@@ -223,7 +236,7 @@ function calc(c){
    ========================================================= */
 const S={cat:'Todos',view:'f',cfg:null,cart:[],step:1,art:{},bill:{tipo:'empresa'},delivery:'recolha',pay:'viva',orders:[],leads:[],lastLogo:null,uid:1,editing:null};
 function newCfg(pid,over={}){
-  const p=prod(pid);const c={pid,color:p.cores[0],tech:p.techs[0],positions:[Object.keys(POS[p.shape])[0]],logo:S.lastLogo,scale:1,text:'',textColor:'auto',qty:p.sizes?50:100,sizes:null,names:false,namesList:'',express:false,...over};
+  const p=prod(pid);const c={pid,color:p.cores[0],tech:p.techs[0],positions:[Object.keys(POS[p.shape])[0]],logo:S.lastLogo||S.defLogo,scale:1,text:'',textColor:'auto',qty:p.sizes?50:100,sizes:null,names:false,namesList:'',express:false,...over};
   if(p.sizes&&!c.sizes)c.sizes=defaultSizes(c.qty);
   if(p.sizes)c.qty=Object.values(c.sizes).reduce((a,b)=>a+b,0);
   return c;
@@ -286,7 +299,7 @@ function renderKits(){
     return `<div class="card kit" data-tilt><img src="${IMG[k.img]}" alt="${esc(k.n)}" loading="lazy"><div class="kbx"><h3>${k.n}</h3><p>${k.d}</p><div class="row2"><span class="price">desde ${eur(tot)} <small class="muted">c/ IVA</small></span><button class="btn pri sm" data-kit="${k.id}">Adicionar kit</button></div></div></div>`}).join('');
 }
 $('kits').addEventListener('click',e=>{const b=e.target.closest('[data-kit]');if(!b)return;const k=KITS.find(x=>x.id===b.dataset.kit);
-  k.items.forEach(i=>pushCart(newCfg(i.pid,{...i,sizes:null,logo:S.cfg.logo||S.lastLogo})));
+  k.items.forEach(i=>pushCart(newCfg(i.pid,{...i,sizes:null,logo:S.cfg.logo||S.lastLogo||S.defLogo})));
   toast(`✓ ${k.n} adicionado ao carrinho (${k.items.length} artigos)`);bumpCart();
 });
 function renderPicker(){
@@ -326,7 +339,7 @@ function renderBuilder(full){
   }
   document.querySelectorAll('#views button').forEach(b=>b.classList.toggle('on',b.dataset.v===S.view));
   $('colorName').textContent=CN[c.color]||'';
-  $('stage').innerHTML=mock(c.pid,c.color,S.view,c);
+  $('stage').innerHTML=visual(c.pid,c,S.view);
   const r=calc(c);
   $('qtyTotal').textContent=`${r.q} peças`;
   const pct=Math.min(100,r.q/250*100);$('tbFill').style.width=pct+'%';
@@ -352,7 +365,7 @@ function renderBuilder(full){
 function renderDrop(){
   const c=S.cfg;
   $('drop').innerHTML=c.logo
-    ?`<div class="has"><img src="${c.logo}" alt="Logótipo carregado"><span>Logótipo aplicado</span><label>trocar<input type="file" accept="image/*" id="logoIn"></label> · <a href="#" id="rmLogo" style="color:var(--muted)">remover</a></div>`
+    ?(isDef(c.logo)?`<div class="has"><img src="${c.logo}" alt="Logótipo de exemplo"><span>A mostrar o logótipo de exemplo BDS</span><label>carregar o seu logótipo<input type="file" accept="image/*" id="logoIn"></label></div>`:`<div class="has"><img src="${c.logo}" alt="Logótipo carregado"><span>Logótipo aplicado</span><label>trocar<input type="file" accept="image/*" id="logoIn"></label> · <a href="#" id="rmLogo" style="color:var(--muted)">remover</a></div>`)
     :`Arraste o logótipo para aqui ou <label>escolha um ficheiro<input type="file" accept="image/*" id="logoIn"></label><br><small class="faint">PNG com fundo transparente dá o melhor resultado</small>`;
 }
 function setLogo(file){if(!file||!file.type.startsWith('image/'))return toast('Escolha uma imagem (PNG, JPG ou SVG)');const rd=new FileReader();rd.onload=()=>{const orig=rd.result;analyzeLogo(orig,info=>{S.logoInfo=info;S.logoOrig=orig;S.bgRemoved=!!info.removed;const use=info.removed||orig;S.cfg.logo=use;S.lastLogo=use;renderDrop();renderBuilder();toast(info.removed?'✓ Logótipo aplicado · fundo branco removido automaticamente':'✓ Logótipo aplicado à pré-visualização')})};rd.readAsDataURL(file)}
@@ -408,7 +421,7 @@ function itemHTML(i){const p=prod(i.pid),r=calc(i),hasB=i.positions.some(k=>POS[
   const sz=p.sizes?SIZES.filter(z=>i.sizes[z]).map(z=>`${z}×${i.sizes[z]}`).join(' · '):'';
   return `<div class="card item" data-tilt><div class="mk">${mock(i.pid,i.color,'f',i)}${hasB?`<div class="bk">${mock(i.pid,i.color,'b',i)}</div>`:''}</div>
   <div><h3><span>${esc(p.n)}</span><span>${eur(r.sub*1.23)}</span></h3>
-  <div class="meta"><span class="chip"><span class="dot" style="background:${i.color}"></span>${CN[i.color]||''}</span><span class="chip m">${TECH[i.tech].n}</span>${i.positions.map(k=>`<span class="chip c">${k}</span>`).join('')}${r.promo?`<span class="chip y">★ ${esc(r.promo.nome)}</span>`:''}${i.express?'<span class="chip y">⚡ Expresso</span>':''}${i.logo?'<span class="chip ok">✓ logótipo</span>':'<span class="chip y">logótipo em falta</span>'}</div>
+  <div class="meta"><span class="chip"><span class="dot" style="background:${i.color}"></span>${CN[i.color]||''}</span><span class="chip m">${TECH[i.tech].n}</span>${i.positions.map(k=>`<span class="chip c">${k}</span>`).join('')}${r.promo?`<span class="chip y">★ ${esc(r.promo.nome)}</span>`:''}${i.express?'<span class="chip y">⚡ Expresso</span>':''}${i.logo&&!isDef(i.logo)?'<span class="chip ok">✓ logótipo</span>':'<span class="chip y">logótipo em falta</span>'}</div>
   <p class="ln"><b>${r.q} peças</b>${sz?' · '+sz:''} · ${eur(r.unit)}/un. s/ IVA</p>
   ${i.text?`<p class="ln">Texto: <b>${esc(i.text)}</b></p>`:''}${i.names?`<p class="ln">Nomes individuais: <b>${i.namesList.split('\n').filter(s=>s.trim()).length}</b></p>`:''}
   <p class="ln">Produção: <b>${r.days} dias úteis</b> · pronto ${fdate(addBiz(r.days))}</p>
@@ -419,7 +432,7 @@ function renderCart(){
   if(!S.cart.length){S.step=1;renderStepper();V.innerHTML=`<div class="card empty"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6"/><circle cx="10" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg><h3>O carrinho está vazio</h3><p class="muted">Personalize um produto ou comece por um dos kits prontos.</p><button class="btn pri" data-go="loja" style="margin-top:10px">Ir para a loja →</button></div>`;return}
   if(S.step===1){
     const inCart=new Set(S.cart.map(i=>i.pid));const sug=[...new Set(S.cart.flatMap(i=>COMPLEMENT[i.pid]))].filter(id=>!inCart.has(id)).slice(0,3);
-    const logo=S.cart.find(i=>i.logo)?.logo||null;
+    const logo=S.cart.find(i=>i.logo&&!isDef(i.logo))?.logo||S.defLogo;
     V.innerHTML=`<div class="cart-grid"><div>${S.cart.map(itemHTML).join('')}
       ${sug.length?`<div class="upsell"><h3>Complete a identidade da sua equipa</h3><p class="muted" style="margin:0 0 12px;font-size:14px">Com o mesmo logótipo${logo?' que já carregou':''}, num clique.</p><div class="ups-grid">${sug.map(id=>{const p=prod(id),cf=newCfg(id,{logo,qty:25,sizes:null}),r=calc(cf);return `<div class="card ups" data-tilt><div class="mk">${mock(id,p.cores[0],'f',cf)}</div><b>${esc(p.n)}</b><span class="muted" style="font-size:13px">25 un. · ${eur(r.total)} c/ IVA</span><button class="btn gho sm" data-ups="${id}">+ Adicionar</button></div>`}).join('')}</div></div>`:''}
     </div>${summaryHTML(`<button class="btn pri" style="width:100%;margin-top:14px" data-step="2">Continuar para aprovação da arte →</button>`)}</div>`;
@@ -480,7 +493,7 @@ $('cartView').addEventListener('click',e=>{
   if(t.dataset.rm){S.cart=S.cart.filter(i=>i.uid!=t.dataset.rm);updateCartN();renderCart()}
   if(t.dataset.dup){const i=S.cart.find(x=>x.uid==t.dataset.dup);pushCart(i);renderCart();toast('Artigo duplicado. Edite-o para mudar a cor ou a técnica')}
   if(t.dataset.edit){const i=S.cart.find(x=>x.uid==t.dataset.edit);S.editing=i.uid;go('loja');S.cfg={...JSON.parse(JSON.stringify({...i,logo:null})),logo:i.logo};S.view='f';renderPicker();renderBuilder(true);$('stage').scrollIntoView({behavior:'smooth',block:'center'})}
-  if(t.dataset.ups){const logo=S.cart.find(i=>i.logo)?.logo||null;pushCart(newCfg(t.dataset.ups,{logo,qty:25,sizes:null}));bumpCart();renderCart();toast('✓ Adicionado com o seu logótipo')}
+  if(t.dataset.ups){const logo=S.cart.find(i=>i.logo&&!isDef(i.logo))?.logo||S.defLogo;pushCart(newCfg(t.dataset.ups,{logo,qty:25,sizes:null}));bumpCart();renderCart();toast('✓ Adicionado com o seu logótipo')}
   if(t.dataset.tipo){readBill();S.bill.tipo=t.dataset.tipo;renderCart()}
   if(t.dataset.step){const n=+t.dataset.step;
     if(n===3&&S.step===2){const miss=S.cart.filter(i=>!S.art[i.uid]?.v);if(miss.length)return toast(`Falta aprovar ${miss.length} artigo(s)`)}
@@ -855,7 +868,7 @@ const SIL={
   hoodie:'M64 40 Q70 14 100 14 Q130 14 136 40 L180 72 L166 160 L150 160 L146 88 L146 182 L54 182 L54 88 L50 160 L34 160 L20 72 Z',
   vest:'M70 26 L88 22 L100 50 L112 22 L130 26 L150 40 L146 70 Q138 80 146 92 L150 182 L50 182 L54 92 Q62 80 54 70 L50 40 Z',
   shirt:'M64 30 L86 22 L100 34 L114 22 L136 30 L170 70 L186 170 L166 174 L150 92 L148 184 L52 184 L50 92 L34 174 L14 170 L30 70 Z',
-  keychain:'M80 74 L120 74 Q138 74 138 92 L138 156 Q138 174 120 174 L80 174 Q62 174 62 156 L62 92 Q62 74 80 74 Z'
+  keychain:'M100 50 C134.24 50 162 77.76 162 112 C162 146.24 134.24 174 100 174 C65.76 174 38 146.24 38 112 C38 77.76 65.76 50 100 50 Z'
 };
 const V3={ok:typeof THREE!=='undefined',on:false,r:null,scene:null,cam:null,grp:null,rotY:.35,rotX:-.06,target:null,drag:null,idle:0,raf:0,key:'',img:{}};
 const can3D=sh=>!!SIL[sh]||sh==='mug'||sh==='bottle';
@@ -896,7 +909,7 @@ function turn3D(v){const off=v==='b'?Math.PI:0;V3.target=Math.round((V3.rotY-off
 function getImg(src){let im=V3.img[src];if(!im){im=new Image();im.onload=()=>{V3.key='';if(V3.on)build3D()};im.src=src;V3.img[src]=im}return im.complete&&im.naturalWidth?im:null}
 function drawArt(x,cfg,dk,X,Y,Wd,Ht,withText,fontPx){
   const ih=withText?Ht*.72:Ht;
-  if(cfg.logo){const im=getImg(cfg.logo);if(im){const r=Math.min(Wd/im.width,ih/im.height),w=im.width*r,h=im.height*r;x.drawImage(im,X+(Wd-w)/2,Y+(ih-h)/2,w,h)}}
+  if(cfg.logo){if(!(location.protocol==='file:'&&!cfg.logo.startsWith('data:'))){const im=getImg(cfg.logo);if(im){const r=Math.min(Wd/im.width,ih/im.height),w=im.width*r,h=im.height*r;x.drawImage(im,X+(Wd-w)/2,Y+(ih-h)/2,w,h)}}}
   else{const ph=dk?'rgba(255,255,255,.85)':'rgba(31,111,229,.9)';x.strokeStyle=ph;x.lineWidth=5;x.setLineDash([16,12]);x.strokeRect(X,Y,Wd,ih);x.setLineDash([]);x.fillStyle=ph;x.font=`800 ${Math.max(18,Math.min(46,Wd/5))}px Barlow,Arial,sans-serif`;x.textAlign='center';x.textBaseline='middle';x.fillText('LOGO',X+Wd/2,Y+ih/2)}
   if(withText){x.fillStyle=cfg.textColor&&cfg.textColor!=='auto'?cfg.textColor:(dk?'#ffffff':'#111111');x.font=`800 ${fontPx}px Barlow,Arial,sans-serif`;x.textAlign='center';x.textBaseline='bottom';x.fillText(cfg.text,X+Wd/2,Y+Ht)}
 }
@@ -909,7 +922,7 @@ function flatCanvas(shape,cfg,view){
 }
 function wrapCanvas(cfg,circ,height,bw,bh){
   const cv=document.createElement('canvas');cv.width=1024;cv.height=512;const x=cv.getContext('2d'),dk=isDark(cfg.color);
-  x.fillStyle=cfg.color;x.fillRect(0,0,1024,512);
+  x.fillStyle=cfg.color==='#e8f1f8'?'rgba(225,238,248,.28)':cfg.color;x.fillRect(0,0,1024,512);
   const sc=cfg.scale||1,w=bw/circ*1024*sc,h=bh/height*512*sc;
   drawArt(x,cfg,dk,512-w/2,256-h/2,w,h,!!cfg.text,Math.max(14,h*.18));
   return cv;
@@ -966,7 +979,7 @@ function renderPromo(){
   const P=PROMOS[S.promoI],el=$('promo');el.style.setProperty('--pc',P.cor);S.promoHi=0;
   el.innerHTML=`<div class="pr-head"><div><span class="pr-tag">Promoção</span><h2 class="pr-title">${esc(P.nome)}</h2><p>${esc(P.sub)}${P.inicio?` · de ${fdm(P.inicio)} a ${fdm(P.fim)}`:''}</p></div><div class="pr-count" id="prCount"></div></div>
   <div class="pr-grid ${P.itens.length===3?'n3':''}">${P.itens.map((it,i)=>{const p=prod(it.pid),cf=promoCfg(P,it),normal=calc({...cf,promo:null}).unit,off=Math.round((1-it.preco/normal)*100);
-    return `<div class="pr-card ${i===0?'hi':''}" data-promo="${i}"><span class="pr-off">−${off}%</span><div class="pr-img">${mock(it.pid,cf.color,'f',cf)}</div>
+    return `<div class="pr-card ${i===0?'hi':''}" data-promo="${i}"><span class="pr-off">−${off}%</span><div class="pr-img">${visual(it.pid,cf,'f')}</div>
       <div class="pr-bd"><b>${esc(p.n)}</b><span class="pr-old">${eur(normal)}</span><span class="pr-new">${eur(it.preco)}<small>/un.</small></span><span class="pr-min">mín. ${it.min} un. · ${TECH[cf.tech].n}</span><button class="btn pri sm">Quero este</button></div></div>`}).join('')}</div>
   <div class="pr-foot"><div class="pr-dots">${PROMOS.map((x,i)=>`<button class="${i===S.promoI?'on':''}" data-promo-i="${i}">${esc(x.nome)}</button>`).join('')}</div><span class="faint">Preço por peça personalizada, sem IVA · valores de exemplo</span></div>`;
   tickCount();
@@ -1032,8 +1045,8 @@ const INFO={
   cooler:{d:'Saco térmico para refeições, com fecho e alças. Ótimo brinde para campanhas.',m:'Poliéster com interior térmico',t:'26 × 16 × 18 cm'},
   tote:{d:'Saco de algodão com alças longas: o brinde reutilizável mais pedido.',m:'Algodão 140 g/m²',t:'38 × 42 cm'},
   mug:{d:'Caneca de cerâmica de 330 ml com impressão resistente à máquina de lavar loiça.',m:'Cerâmica',t:'330 ml · Ø 8 × 9,5 cm'},
-  bottle:{d:'Garrafa térmica de aço inoxidável de parede dupla, mantém a temperatura durante horas.',m:'Aço inoxidável de parede dupla',t:'500 ml · Ø 7 × 26 cm'},
-  keychain:{d:'Porta-chaves em acrílico com argola metálica, impresso a cores.',m:'Acrílico 3 mm e argola metálica',t:'4 × 6 cm'},
+  bottle:{d:'Garrafa transparente com tampa metálica e pega, reutilizável. O logótipo fica em destaque no corpo.',m:'Corpo transparente e tampa em aço inoxidável',t:'500 ml'},
+  keychain:{d:'Porta-chaves redondo em vinil com argola metálica, impresso a cores.',m:'Vinil e argola metálica',t:'Ø 5 cm'},
   pen:{d:'Caneta metálica com ponteira touch para ecrãs e escrita azul.',m:'Alumínio',t:'13,5 cm'}
 };
 const FEATURED=['polo','bottle','mug','shirt','cap','keychain'];
@@ -1042,7 +1055,7 @@ const fromPrice=(id,q=100)=>{const p=prod(id);return calc(newCfg(id,{qty:q,sizes
 const inPromo=id=>PROMOS[0].itens.some(i=>i.pid===id);
 S.fav=new Set();S.cf={q:'',cats:[],max:25,tech:[],fav:false,sort:'rel'};S.reviews={};S.ptab='desc';
 const HEART_SVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 21s-7.5-4.6-9.5-9.3C1.2 8.3 3.3 4.5 7 4.5c2 0 3.5 1.1 5 3 1.5-1.9 3-3 5-3 3.7 0 5.8 3.8 4.5 7.2C19.5 16.4 12 21 12 21z"/></svg>';
-const thumb=(id)=>{const p=prod(id);return p.img?`<img src="${IMG[p.img]}" alt="" loading="lazy">`:mock(id,p.cores[0]).replace('<svg ','<svg class="mk" ')};
+const thumb=(id)=>{const p=prod(id);if(PHOTO[id])return photoMock(id,newCfg(id));return p.img?`<img src="${IMG[p.img]}" alt="" loading="lazy">`:mock(id,p.cores[0],'f',newCfg(id)).replace('<svg ','<svg class="mk" ')};
 function pcard(id){
   const p=prod(id),badge=inPromo(id)?'<span class="pbadge promo">Promo</span>':id==='keychain'?'<span class="pbadge novo">Novo</span>':FEATURED.includes(id)?'<span class="pbadge">Destaque</span>':'';
   return `<div class="pcard" data-pick="${id}"><div class="pimg">${badge}<button class="fav ${S.fav.has(id)?'on':''}" data-fav="${id}" aria-label="Favorito">${HEART_SVG}</button>${thumb(id)}</div>
@@ -1184,10 +1197,10 @@ function openQuote(withProduct){
     Q.files.push({src:svgURL(mock(c.pid,c.color,'f',c)),label:'Pré-visualização (frente)'});
     if(hasB)Q.files.push({src:svgURL(mock(c.pid,c.color,'b',c)),label:'Pré-visualização (costas)'});
     if(S.is3d&&V3.r){try{V3.r.render(V3.scene,V3.cam);Q.files.push({src:V3.r.domElement.toDataURL('image/png'),label:'Vista 3D'})}catch(err){}}
-    if(c.logo)Q.files.push({src:c.logo,label:S.bgRemoved?'Logótipo (fundo removido)':'Logótipo',logo:true});
+    if(c.logo&&!isDef(c.logo))Q.files.push({src:c.logo,label:S.bgRemoved?'Logótipo (fundo removido)':'Logótipo',logo:true});
     Q.prod={n:p.n,q:r.q,total:r.total,unit:r.unit,txt:`${r.q} × ${p.n} · ${CN[c.color]||c.color} · ${TECH[c.tech].n} · ${c.positions.join(' + ')}${c.text?' · texto "'+c.text+'"':''}${c.names?' · com nomes':''}${c.express?' · expresso':''}`};
     $('qSum').innerHTML=`<div class="qsum">${Q.files.map(f=>`<div class="qi ${f.logo?'logo':''}"><img src="${f.src}" alt="">${esc(f.label)}</div>`).join('')}
-      ${c.logo?'':'<div class="qi" style="display:flex;align-items:center;justify-content:center;color:var(--warn)">Sem logótipo: pode anexá-lo depois por email</div>'}
+      ${c.logo&&!isDef(c.logo)?'':'<div class="qi" style="display:flex;align-items:center;justify-content:center;color:var(--warn)">Sem logótipo: pode anexá-lo depois por email</div>'}
       <div class="qdet"><div class="rw"><span class="muted">Pedido</span><span style="text-align:right">${esc(Q.prod.txt)}</span></div><div class="rw"><span class="muted">Estimativa da loja</span><span>${eur(r.sub)} + IVA (${eur(r.unit)}/un.)</span></div></div></div>`;
   }else $('qSum').innerHTML=`<div class="qdet" style="margin-bottom:18px">Pedido geral: descreva o que precisa nas observações. Para anexar o logótipo e a pré-visualização automaticamente, abra um produto e use "Pedir orçamento com este logótipo".</div>`;
   $('qErr').textContent='';$('qmodal').classList.add('on');document.body.style.overflow='hidden';
@@ -1290,7 +1303,7 @@ build3D=function(){
     const bm=new THREE.MeshStandardMaterial({map:tex(BACKS.includes(sh)?texCanvas(sh,c,'b'):plainCanvas(c.color)),roughness:kc?.2:.92,bumpMap:kc?null:noiseTex(),bumpScale:.035});
     const sm=new THREE.MeshStandardMaterial({color:linCol(c.color),roughness:kc?.2:.95,side:THREE.DoubleSide});
     V3.grp.add(new THREE.Mesh(g,[fm,bm,sm]));
-    if(kc){const mt=new THREE.MeshStandardMaterial({color:linCol('#d7dde8'),metalness:.85,roughness:.22});const ring=new THREE.Mesh(new THREE.TorusGeometry(15,2.6,16,48),mt);ring.position.set(0,56,0);V3.grp.add(ring);const link=new THREE.Mesh(new THREE.CylinderGeometry(3,3,17,16),mt);link.position.set(0,33,0);V3.grp.add(link)}
+    if(kc){const mt=new THREE.MeshStandardMaterial({color:linCol('#d7dde8'),metalness:.85,roughness:.22});const ring=new THREE.Mesh(new THREE.TorusGeometry(15,2.6,16,48),mt);ring.position.set(0,64,0);V3.grp.add(ring)}
     V3.grp.scale.setScalar(kc?.0135:.0115);if(kc)V3.grp.position.y=-.2;
   }else if(sh==='mug'){
     const R=48,H=110,col=linCol(c.color),inCol=new THREE.Color(c.color).multiplyScalar(.82).convertSRGBToLinear();
@@ -1303,8 +1316,8 @@ build3D=function(){
     const h=new THREE.Mesh(new THREE.TorusGeometry(27,7.5,20,48,Math.PI),gm);h.rotation.z=-Math.PI/2;h.position.x=R-3;V3.grp.add(h);
     V3.grp.scale.setScalar(.0135);
   }else if(sh==='bottle'){
-    const col=linCol(c.color),met=new THREE.MeshStandardMaterial({color:col,roughness:.3,metalness:.35});
-    const body=new THREE.Mesh(new THREE.CylinderGeometry(22,22,118,72,1,true,Math.PI,Math.PI*2),new THREE.MeshStandardMaterial({map:tex(wrapCanvas(c,2*Math.PI*22,118,34,54)),roughness:.3,metalness:.35}));body.position.y=-12;V3.grp.add(body);
+    const col=linCol(c.color),glass=c.color==='#e8f1f8',met=new THREE.MeshStandardMaterial(glass?{color:col,roughness:.08,transparent:true,opacity:.35,depthWrite:false}:{color:col,roughness:.3,metalness:.35});
+    const body=new THREE.Mesh(new THREE.CylinderGeometry(22,22,118,72,1,true,Math.PI,Math.PI*2),new THREE.MeshStandardMaterial(c.color==='#e8f1f8'?{map:tex(wrapCanvas(c,2*Math.PI*22,118,34,54)),roughness:.08,metalness:0,transparent:true,side:THREE.DoubleSide,depthWrite:false}:{map:tex(wrapCanvas(c,2*Math.PI*22,118,34,54)),roughness:.3,metalness:.35}));body.position.y=-12;V3.grp.add(body);
     const sh2=new THREE.Mesh(new THREE.LatheGeometry([[22,0],[21.6,5],[19.5,10],[16.5,14],[14.5,17],[14,23]].map(([x,y])=>new THREE.Vector2(x,y)),72),met);sh2.position.y=47;V3.grp.add(sh2);
     const bot=new THREE.Mesh(new THREE.CircleGeometry(22,48),met);bot.rotation.x=Math.PI/2;bot.position.y=-71;V3.grp.add(bot);
     const cap=new THREE.Mesh(new THREE.CylinderGeometry(15.5,15.5,26,48),new THREE.MeshStandardMaterial({color:linCol('#aab2bf'),metalness:.75,roughness:.25}));cap.position.y=83;V3.grp.add(cap);
@@ -1407,7 +1420,7 @@ function applyMode(){
 function confirmQuoteList(){
   const t=totals(),ref='ORC-'+String(Date.now()).slice(-5),files=[];
   S.cart.forEach(i=>{files.push({src:svgURL(mock(i.pid,i.color,'f',i)),label:prod(i.pid).n+' (frente)'});if(i.positions.some(k=>POS[prod(i.pid).shape][k].v==='b'))files.push({src:svgURL(mock(i.pid,i.color,'b',i)),label:prod(i.pid).n+' (costas)'})});
-  const lg=S.cart.find(i=>i.logo);if(lg)files.push({src:lg.logo,label:'Logótipo',logo:true});
+  const lg=S.cart.find(i=>i.logo&&!isDef(i.logo));if(lg)files.push({src:lg.logo,label:'Logótipo',logo:true});
   S.leads.unshift({ref,nome:S.bill.nome,emp:S.bill.emp,serv:S.cart.map(i=>`${calc(i).q} × ${prod(i.pid).n}`).join(' + '),qtd:String(t.pieces),hora:new Date().toLocaleTimeString('pt-PT',{hour:'2-digit',minute:'2-digit'}),files});
   S.step=5;renderStepper();document.querySelectorAll('.stp').forEach(s=>{s.classList.remove('on');s.classList.add('done');s.querySelector('i').textContent='✓'});
   const st=['Pedido recebido','Proposta enviada','Arte aprovada','Em produção','Entregue'];
@@ -1427,6 +1440,27 @@ function routeHash(){const h=decodeURIComponent(location.hash.slice(1));if(!h)re
   if(h.startsWith('legal-'))return openLegal(h.slice(6));
   if(document.getElementById('t-'+h))go(h);}
 addEventListener('hashchange',routeHash);
+
+/* =========================================================
+   LOGÓTIPO DE EXEMPLO E FOTOGRAFIAS-MODELO (funções)
+   ========================================================= */
+S.defLogo=DEFAULT_LOGO;
+function isDef(src){return !!src&&(src===DEFAULT_LOGO||src===S.defLogo)}
+function photoMock(id,cfg){
+  const ph=PHOTO[id],lg=cfg&&cfg.logo,sc=(cfg&&cfg.scale)||1;
+  return `<div class="phm"><img class="phb" src="${ph.src}" alt="${esc(prod(id).n)}" loading="lazy" onerror="this.parentNode.classList.add('noimg')">${lg?`<img class="phl" src="${lg}" alt="" style="left:${ph.x}%;top:${ph.y}%;width:${ph.w*sc}%">`:''}</div>`;
+}
+function visual(id,cfg,view){
+  const ph=PHOTO[id];
+  if(ph&&view==='f'&&cfg.color===ph.color&&cfg.positions.some(k=>POS[prod(id).shape][k]&&POS[prod(id).shape][k].v==='f'))return photoMock(id,cfg);
+  return mock(id,cfg.color,view,cfg);
+}
+/* converte o logótipo de exemplo em imagem embutida (para anexos e 3D) */
+fetch(DEFAULT_LOGO).then(r=>r.ok?r.blob():Promise.reject()).then(b=>new Promise(res=>{const f=new FileReader();f.onload=()=>res(f.result);f.readAsDataURL(b)})).then(d=>{
+  S.defLogo=d;if(S.cfg&&S.cfg.logo===DEFAULT_LOGO){S.cfg.logo=d}
+  S.cart.forEach(i=>{if(i.logo===DEFAULT_LOGO)i.logo=d});
+  if(typeof renderPromo==='function')renderPromo();if(S.cfg)renderBuilder(true);
+}).catch(()=>{});
 
 /* =========================================================
    ARRANQUE

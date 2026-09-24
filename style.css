@@ -871,3 +871,13 @@ a.ci:hover .go{color:var(--c)}
 .soon-box h2{font-size:38px;margin:12px 0 8px}
 .soon-box p{color:#cdd3e1;margin:0 0 12px}
 .soon-b{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+
+/* Fotografias-modelo com o logótipo sobreposto */
+.phm{position:relative;width:100%;height:100%;background:#fff;overflow:hidden}
+.phm .phb{width:100%!important;height:100%!important;object-fit:contain!important;display:block}
+.phm .phl{position:absolute;transform:translate(-50%,-50%);height:auto!important;object-fit:contain!important;pointer-events:none;filter:drop-shadow(0 1px 1px rgba(0,0,0,.15))}
+.phm.noimg{background:repeating-linear-gradient(45deg,#1a2133 0 10px,#151b29 10px 20px)}
+.stage-svg .phm{width:86%;height:86%;border-radius:14px}
+.pr-img .phm,.pimg .phm{height:100%}
+.circ .in .phm{border-radius:50%}
+.sugg .sm .phm .phl,.ddm .sm .phm .phl{filter:none}
