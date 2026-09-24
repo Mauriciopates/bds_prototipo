@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BDS · Blue Digital Store | Têxteis, brindes e fardamento personalizados</title>
+<meta name="description" content="Têxteis, brindes e fardamento personalizados em Rio Tinto. Preço imediato, pré-visualização em 3D, aprovação de arte online e pagamento com MB WAY, Multibanco ou cartão.">
+<link rel="icon" href="img/logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="topbar"><div class="wrap tb-in"><span><b>BDS</b> — Têxteis, brindes e fardamento personalizados · Rio Tinto</span><span class="tb-r"><a href="https://wa.me/351910377586?text=Ol%C3%A1!%20Gostaria%20de%20pedir%20um%20or%C3%A7amento." target="_blank" rel="noopener">☆ Pedir orçamento no WhatsApp</a><span class="tb-sep"></span><a href="mailto:sales@bluedigital.store">sales@bluedigital.store</a></span></div></div>
+
+<header>
+  <div class="wrap hmain">
+    <button class="brand" data-go="inicio" aria-label="Início">
+      <img src="img/logo.webp" alt="Logótipo BDS">
+      <span class="wordmark"><span class="b">BLUE</span><span class="d">DIGITAL</span><span class="s">.STORE</span></span>
+    </button>
+    <div class="search"><input type="search" id="q" placeholder="O que procura? ex.: garrafa, polo, caneca" autocomplete="off"><button id="qGo" aria-label="Pesquisar"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button><div class="sugg" id="sugg"></div></div>
+    <div class="hicons">
+      <button class="hi" id="hAcc"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span class="hl">Área de cliente</span></button>
+      <button class="hi" id="hFav" aria-label="Favoritos"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 21s-7.5-4.6-9.5-9.3C1.2 8.3 3.3 4.5 7 4.5c2 0 3.5 1.1 5 3 1.5-1.9 3-3 5-3 3.7 0 5.8 3.8 4.5 7.2C19.5 16.4 12 21 12 21z"/></svg><span class="n" id="favN">0</span></button>
+      <button class="hi cartbtn" data-go="carrinho" id="cartBtn" aria-label="Carrinho"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6"/><circle cx="10" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg><span class="n" id="cartN">0</span></button>
+    </div>
+  </div>
+  <div class="navrow"><div class="wrap nav-in">
+    <nav class="tabs" id="tabs">
+      <button class="allp" data-go="catalogo">☰ Todos os produtos</button>
+      <div class="dd" id="dd"><button class="ddb" id="ddBtn">Categorias <span>▾</span></button><div class="ddm" id="ddMenu"></div></div>
+      <button data-jump="kitsSec">Nossos kits</button>
+      <button data-jump="promo">Promoções</button>
+      <button data-go="servicos">Serviços</button>
+      <button data-go="portfolio">Portfólio</button>
+      <button data-scroll="contacto">Contacto</button>
+    </nav>
+    <button class="btn quick" id="quickQ">Orçamento rápido</button>
+  </div></div>
+</header>
+
+
+<main>
+<!-- =================== INÍCIO =================== -->
+<div class="tab on" id="t-inicio">
+  <section class="hs" id="hs">
+<div class="slide on" style="--bg:url(img/polo_full.webp)"><div class="wrap sl-in"><span class="eyebrow">Têxteis · Brindes · Fardamento · Estampagens</span><h1>Vendemos a <span class="gt">identidade</span><br>da sua <span class="gm">marca</span><span class="gy">.</span></h1><p class="lead">Personalize online, veja o resultado em 3D e receba o preço na hora. Produção própria em Rio Tinto.</p><div class="cta"><button class="btn pri" data-go="catalogo">Personalizar agora</button><button class="btn gho" id="heroAI">Descrever o que preciso</button></div></div></div><div class="slide " style="--bg:url(img/sacos.webp)"><div class="wrap sl-in"><span class="eyebrow">Promoção de novembro</span><h1>Novembro <span class="gy">Maluco</span></h1><p class="lead">5 produtos, 5 preços loucos: t-shirt, caneca, garrafa, saco tote e porta-chaves, já com o seu logótipo.</p><div class="cta"><button class="btn pri" data-jump="promo">Ver promoções</button></div></div></div><div class="slide " style="--bg:url(img/leitoes.webp)"><div class="wrap sl-in"><span class="eyebrow">Para cada setor</span><h1>Fardamento <span class="gm">profissional</span></h1><p class="lead">Camisas, aventais, polos e coletes com a sua marca e o nome de cada colaborador.</p><div class="cta"><button class="btn pri" data-jump="kitsSec">Ver kits</button><button class="btn gho" data-quote>Pedir orçamento</button></div></div></div>
+    <button class="hs-arr l" data-hs="-1" aria-label="Anterior"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button class="hs-arr r" data-hs="1" aria-label="Seguinte"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+    <div class="hs-dots" id="hsDots"></div>
+  </section>
+
+  <section class="block cats-sec">
+    <div class="wrap"><h2 class="h2s">Escolha uma categoria</h2></div>
+    <div class="catrail reels" id="catRail"></div>
+    <div class="wrap">
+      <div class="trustbar">
+        <div><span class="ti"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg></span><p><b>Pagamento facilitado</b><small>MB WAY, Multibanco ou cartão</small></p></div>
+        <div><span class="ti"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><p><b>Orçamento rápido</b><small>Resposta em até 24 horas úteis</small></p></div>
+        <div><span class="ti"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg></span><p><b>Entrega em todo o país</b><small>Ou recolha grátis em Rio Tinto</small></p></div>
+        <div><span class="ti"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></span><p><b>Prova de arte</b><small>Aprova antes de produzirmos</small></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:10px"><div class="wrap"><div class="promo" id="promo"></div></div></section>
+
+  <section class="block" style="padding-top:0">
+    <div class="wrap dest">
+      <aside class="finder">
+        <span class="eyebrow" style="color:var(--y)">Catálogo</span>
+        <h3>Encontre o produto certo</h3>
+        <p>Escolha a categoria, o preço por peça e a técnica ideais para a sua marca.</p>
+        <label class="fl" for="fCat">Categoria</label>
+        <select id="fCat"><option value="">Todas as categorias</option></select>
+        <label class="fl" for="fMax">Preço por peça <b id="fMaxL" style="float:right;color:var(--text)">até 25 €</b></label>
+        <input type="range" id="fMax" min="1" max="25" step="0.5" value="25">
+        <label class="fl" for="fTech">Técnica</label>
+        <select id="fTech"><option value="">Todas as técnicas</option></select>
+        <button class="btn light" id="fGo">Encontrar produtos</button>
+      </aside>
+      <div>
+        <div class="sec-row" style="margin-bottom:16px"><h2 style="margin:0">Destaques</h2><button class="lnk" data-go="catalogo">Ver todos →</button></div>
+        <div class="pgrid g3" id="destGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt" id="kitsSec">
+    <div class="wrap">
+      <div class="sec-head"><span class="eyebrow">Nossos kits</span><h2>Kits prontos <span class="gt">por setor</span></h2><p class="lead">Um clique adiciona o kit completo ao carrinho, já com o seu logótipo se o tiver carregado.</p></div>
+      <div class="kits" id="kits"></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap"><div class="sec-head reveal" style="max-width:none;display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap"><div style="max-width:720px"><span class="eyebrow">Direto do Instagram</span><h2>Viu no feed? <span class="gt">Encomende aqui.</span></h2><p class="lead">Cada vídeo leva a uma encomenda: toque em "Quero um assim" e o personalizador abre já com o produto, a cor e a técnica do vídeo.</p></div><a class="btn gho" href="https://www.instagram.com/bluedigital.store/" target="_blank" rel="noopener">Seguir @bluedigital.store ↗</a></div></div>
+    <div class="reels" id="reelsHome"></div>
+  </section>
+
+  <section class="block alt" id="assistente">
+    <div class="wrap">
+      <div class="sec-head"><span class="eyebrow">Assistente BDS · IA</span><h2>Diga o que precisa, <span class="gt">nós montamos a proposta</span></h2><p class="lead">Escreva como falaria connosco. O assistente escolhe o produto, a técnica e as posições, e dá-lhe logo o preço e o prazo.</p></div>
+      <div class="ai">
+        <div class="card pad ai-in">
+          <label class="fl" for="aiText">O seu pedido</label>
+          <textarea id="aiText" placeholder="ex.: Preciso de 30 polos pretos bordados no peito, com o nome de cada funcionário"></textarea>
+          <div class="ai-ex" id="aiEx"><button>30 polos pretos bordados no peito com nomes</button><button>Fardas para restaurante, 12 pessoas</button><button>100 canecas brancas com logótipo, urgente</button><button>50 t-shirts brancas DTF frente e costas</button></div>
+          <button class="btn pri" id="aiGo" style="width:100%">Gerar proposta</button>
+        </div>
+        <div class="ai-out" id="aiOut"><div class="ai-empty">A proposta aparece aqui: produto, pré-visualização, preço e data de entrega.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="brands">Trabalhos recentes para <b>RIMO</b>·<b>Casa dos Leitões</b>·<b>Continente Equilíbrio</b></div>
+  <section class="block" style="padding-top:36px">
+    <div class="marquee"><div class="mtrack" id="mtrack"></div></div>
+    <div id="svcHome" hidden></div><div id="bestHome" hidden></div>
+  </section>
+</div>
+
+<!-- =================== CATÁLOGO =================== -->
+<div class="tab" id="t-catalogo">
+  <section class="block" style="padding-top:26px">
+    <div class="wrap">
+      <div class="crumb"><button data-go="inicio">Início</button> › <span id="cCrumb">Todos os produtos</span></div>
+      <div class="catlay">
+        <aside class="card filt">
+          <h3>Filtrar</h3>
+          <label class="fl" for="cQ">Pesquisa</label><input type="search" id="cQ" placeholder="Nome do produto">
+          <label class="fl">Categorias</label><div class="chk" id="cCats"></div>
+          <label class="fl" for="cMax">Preço por peça <b id="cMaxL" style="float:right;color:var(--text)">até 25 €</b></label><input type="range" id="cMax" min="1" max="25" step="0.5" value="25">
+          <label class="fl">Técnica</label><div class="chk" id="cTech"></div>
+          <label class="switch"><span>Só favoritos</span><input type="checkbox" id="cFav"></label>
+          <button class="btn gho sm" id="cClear" style="width:100%;margin-top:10px">Limpar filtros</button>
+        </aside>
+        <div>
+          <div class="cat-top"><h2 style="margin:0" id="cTitle">Todos os produtos</h2><div class="inrow" style="width:auto"><span class="muted" id="cCount" style="white-space:nowrap"></span><select id="cSort" style="width:auto"><option value="rel">Relevância</option><option value="pa">Preço: menor</option><option value="pd">Preço: maior</option><option value="az">Nome A–Z</option></select></div></div>
+          <div class="pgrid" id="cGrid"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- =================== SERVIÇOS =================== -->
+<div class="tab" id="t-servicos">
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-head"><span class="eyebrow">Serviços</span><h2>Escolha a técnica <span class="gt">certa</span></h2><p class="lead">Passe o rato (ou toque) sobre cada cartão para ver os detalhes. Valores e prazos indicativos, a confirmar com a equipa BDS.</p></div>
+      <div class="flip-grid" id="flipGrid"></div>
+      <div style="margin-top:56px">
+        <div class="sec-head"><span class="eyebrow">Comparador</span><h2>Qual a melhor <span class="gt">para si?</span></h2></div>
+        <div class="tech-table">
+          <table>
+            <thead><tr><th>Técnica</th><th>Materiais</th><th>Ideal para</th><th>Durabilidade</th><th>Quantidade</th><th>Prazo típico</th></tr></thead>
+            <tbody id="techTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- =================== LOJA =================== -->
+<div class="tab" id="t-loja">
+  <section class="block" style="padding-top:22px">
+    <div class="wrap">
+      <div class="crumb"><button data-go="inicio">Início</button> › <button data-go="catalogo" id="pgCat">Categoria</button> › <span id="pgName"></span></div>
+      <div class="builder">
+        <div class="stage-col">
+          <div class="card stage">
+            <div class="stage-top"><div><span class="chip y" id="pgBadge"></span></div><div class="seg2"><div class="views" id="views"><button data-v="f" class="on">Frente</button><button data-v="b">Costas</button></div><button class="b3d" id="b3d">3D</button></div></div>
+            <div class="stage-box" id="stageBox"><div class="stage-svg" id="stage"></div><div class="stage3d" id="stage3d"></div><div class="hint3d">arraste para rodar · 360°</div></div>
+            <div class="drop" id="drop"></div>
+            <div id="logoAI"></div>
+          </div>
+          <div class="card deliv"><div><span class="faint" style="font-size:12px">PRONTO A PARTIR DE</span><div class="big" id="dlDate">—</div></div><div class="muted" style="font-size:13px;margin-left:auto;text-align:right" id="dlInfo"></div></div>
+        </div>
+        <div class="card ctrl">
+          <div class="phead">
+            <h1 class="ptitle" id="stName"></h1>
+            <div class="pmeta"><span>Ref.: <b id="pgSku"></b></span><span class="faint" id="stSrc"></span></div>
+            <button class="favbtn" id="pgFav">♡ Adicionar aos favoritos</button>
+            <div class="pfrom"><b id="pgFrom"></b> <span>por unidade</span><small>Valor para <b id="pgFromQ"></b> peças · <em>preço já com personalização</em></small></div>
+          </div>
+          <div class="grp"><div class="gl"><i>€</i>MELHORES PREÇOS <small>toque numa linha para escolher</small></div><p class="tiers-note">Preço por unidade, já com a personalização escolhida.</p><div class="tiers" id="tierTbl"></div></div>
+          <div class="grp"><div class="gl"><i>1</i>COR <small id="colorName"></small></div><div class="swatches" id="colors"></div></div>
+          <div class="grp"><div class="gl"><i>2</i>TÉCNICA</div><div class="opts" id="techs"></div></div>
+          <div class="grp"><div class="gl"><i>3</i>POSIÇÕES <small>pode escolher várias</small></div><div class="opts" id="poss"></div></div>
+          <div class="grp"><div class="gl"><i>4</i>ARTE</div>
+            <label class="fl" for="scale">Tamanho do logótipo</label>
+            <input type="range" id="scale" min="0.6" max="1.2" step="0.05" value="1">
+            <label class="fl" for="ptext" style="margin-top:12px">Texto sob o logótipo (opcional)</label>
+            <div class="inrow"><input type="text" id="ptext" maxlength="22" placeholder="ex.: RESTAURANTE O FORNO"><div class="swatches" id="tcolors" style="flex-shrink:0"></div></div>
+          </div>
+          <div class="grp"><div class="gl"><i>5</i>QUANTIDADE <small id="qtyTotal"></small></div><div id="qtyBox"></div>
+            <span id="tbFill" hidden></span><div class="tb-msg" id="tbMsg"></div>
+          </div>
+          <div class="grp"><div class="gl"><i>6</i>EXTRAS</div>
+            <label class="switch"><span>Nome individual em cada peça<small>+2,00 € por peça · ideal para fardamento</small></span><input type="checkbox" id="names"></label>
+            <textarea id="namesList" placeholder="Um nome por linha&#10;Ana Silva&#10;João Costa" style="display:none;margin:6px 0 4px"></textarea>
+            <div class="fhint" id="namesHint"></div>
+            <label class="switch"><span>Produção expresso<small>+20% · prazo reduzido para metade</small></span><input type="checkbox" id="express"></label>
+          </div>
+          <div class="pricebox">
+            <div class="pb-top"><div><span class="faint" style="font-size:12px">TOTAL COM IVA</span><div class="t" id="pTotal">—</div></div><div class="u">preço por peça<b id="pUnit">—</b>sem IVA</div></div>
+            <details class="bd"><summary>Ver detalhe do cálculo</summary><div id="pBreak"></div></details>
+            <p class="faint" style="font-size:12px;margin:8px 0 0">Preços de demonstração. Os valores reais vêm da tabela de preços da BDS.</p>
+            <div class="acts"><button class="btn pri" id="addCart">Adicionar ao carrinho</button><button class="btn quick" id="toQuote">Pedir orçamento com este logótipo</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="card ptabs"><div class="pt-nav" id="ptNav"></div><div class="pt-body" id="ptBody"></div></div>
+      <div class="sec-row" style="margin-top:40px;margin-bottom:12px"><h2 style="margin:0;font-size:34px">Outros produtos</h2></div>
+      <div class="cats" id="cats"></div>
+      <div class="picker" id="picker"></div>
+    </div>
+  </section>
+</div>
+
+
+<!-- =================== PORTFÓLIO =================== -->
+<div class="tab" id="t-portfolio">
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-head"><span class="eyebrow">Portfólio</span><h2>Marcas que <span class="gt">vestimos</span></h2><p class="lead">Alguns dos trabalhos produzidos nas nossas instalações em Rio Tinto. Clique para ampliar.</p></div>
+      <h3 style="margin-bottom:12px">Reels</h3><div class="reels" id="reelsPf" style="padding-left:0;padding-right:0;margin-bottom:34px"></div>
+      <div class="pf-grid" id="pfGrid"></div>
+    </div>
+  </section>
+</div>
+
+<!-- =================== CARRINHO =================== -->
+<div class="tab" id="t-carrinho">
+  <section class="block" style="padding-top:44px">
+    <div class="wrap">
+      <div class="sec-head" style="margin-bottom:22px"><span class="eyebrow" id="cartEye">Encomenda</span><h2 id="cartTitle">O seu <span class="gt">carrinho</span></h2></div>
+      <div class="stepper" id="stepper"></div>
+      <div id="cartView"></div>
+    </div>
+  </section>
+</div>
+
+<!-- =================== INTEGRAÇÕES =================== -->
+<div class="tab" id="t-integracoes">
+  <section class="block" style="padding-top:44px">
+    <div class="wrap">
+      <div class="sec-head"><span class="eyebrow">Arquitetura</span><h2>Ciclo de ligação <span class="gt">das APIs</span></h2><p class="lead">Como os fornecedores, a loja, a Viva, a faturação e o Instagram falam entre si sem intervenção manual. Carregue em "Simular ciclo" para ver uma encomenda a percorrer o sistema.</p></div>
+      <div class="diag" id="diag"></div>
+      <div class="cta" style="margin-top:16px"><button class="btn pri" id="cycBtn">▶ Simular ciclo completo</button><span class="muted" style="font-size:13px;align-self:center">Os pontos em movimento representam os dados a circular.</span></div>
+      <div class="cycle">
+        <div id="cycSteps"></div>
+        <div>
+          <div class="card pad" style="margin-bottom:18px"><h3>Viva: checkout com a marca BDS</h3><p class="muted" style="font-size:14px;margin:0 0 16px">A BDS já trabalha com a Viva. A mesma conta passa a receber os pagamentos do site através do Smart Checkout, personalizado com o logótipo e a cor da marca.</p><div id="vivaPreview"></div></div>
+          <div class="card pad"><h3>O que a Viva permite fazer no site</h3>
+            <ul class="vlist">
+              <li><b>Pré-autorização:</b> o valor fica cativo e só é cobrado depois de o cliente aprovar a arte.</li>
+              <li><b>Link de pagamento:</b> cada orçamento gera um link que se envia por WhatsApp ou email, e o cliente paga sem criar conta.</li>
+              <li><b>Loja física e site juntos:</b> as vendas do terminal e do site aparecem no mesmo painel Viva.</li>
+              <li><b>Descrição clara:</b> o cliente vê "BDS · Encomenda BDS-1042 · 25 polos bordados".</li>
+              <li><b>Métodos certos para Portugal:</b> MB WAY, Multibanco, cartão, Apple Pay e Google Pay no mesmo checkout.</li>
+            </ul></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- =================== INFORMAÇÃO LEGAL =================== -->
+<div class="tab" id="t-legal">
+  <section class="block" style="padding-top:26px">
+    <div class="wrap">
+      <div class="crumb"><button data-go="inicio">Início</button> › Informação legal</div>
+      <div class="leglay"><aside class="card legnav" id="legNav"></aside><article class="card legbody" id="legBody"></article></div>
+    </div>
+  </section>
+</div>
+
+<!-- =================== PAINEL =================== -->
+<div class="tab" id="t-painel">
+  <section class="block" style="padding-top:44px">
+    <div class="wrap">
+      <div class="sec-head"><span class="eyebrow">Área interna BDS</span><h2>Painel de <span class="gt">automação</span></h2><p class="lead">O que a equipa vê por trás da loja: catálogo sincronizado com fornecedores, encomendas a avançar na produção e pedidos de contacto a chegar em tempo real.</p></div>
+      <div class="kpis">
+        <div class="card kpi"><b id="kProd">13</b><span>produtos ativos</span></div>
+        <div class="card kpi"><b id="kOrd">0</b><span>encomendas (sessão)</span></div>
+        <div class="card kpi"><b id="kRev">0 €</b><span>faturação (sessão)</span></div>
+        <div class="card kpi"><b id="kLead">0</b><span>pedidos de contacto</span></div>
+        <div class="card kpi"><b id="kSync">—</b><span>última sincronização</span></div>
+      </div>
+      <div class="pn-grid">
+        <div class="card pad"><h3>Sincronização de fornecedores</h3><p class="muted" style="margin:0 0 12px;font-size:14px">Simulação: script Python agendado (cron) que lê a API REST e o feed XML dos fornecedores.</p><button class="btn pri sm" id="syncBtn">▶ Executar agora</button><div class="log" id="log">A aguardar execução…</div></div>
+        <div class="card pad"><h3>Alterações detetadas</h3><div style="overflow-x:auto"><table><thead><tr><th>Produto</th><th>Alteração</th><th>Valor</th></tr></thead><tbody id="changes"><tr><td colspan="3" class="muted">Ainda sem execução.</td></tr></tbody></table></div></div>
+      </div>
+      <div class="pn-grid">
+        <div class="card pad"><h3>Publicar Reel · site + Instagram</h3><p class="muted" style="margin:0 0 12px;font-size:14px">Carregue um vídeo: aparece logo no site e, com a opção ligada, é publicado na conta da marca pela Instagram API.</p>
+          <div class="upl">
+            <input type="file" id="rvFile" accept="video/*" style="font-size:13px;color:var(--muted)">
+            <textarea id="rvCap" placeholder="Legenda com hashtag, ex.: Polos bordados para a equipa #bds-polo" style="min-height:70px"></textarea>
+            <div class="auto" id="rvAuto"></div>
+            <select id="rvProd"></select>
+            <label class="switch"><span>Publicar também no Instagram @bluedigital.store<small>Instagram API · media_type=REELS (simulação)</small></span><input type="checkbox" id="rvIg" checked></label>
+            <button class="btn pri" id="rvPub">Publicar Reel</button>
+          </div></div>
+        <div class="card pad"><h3>Registo da publicação</h3><div class="log" id="rvLog">A aguardar vídeo…</div></div>
+      </div>
+      <div class="card pad" style="margin-bottom:18px"><h3>Encomendas</h3><p class="muted" style="margin:0 0 10px;font-size:13.5px">Alterar o estado envia um email automático ao cliente.</p><div style="overflow-x:auto"><table><thead><tr><th>Nº</th><th>Cliente</th><th>Peças</th><th>Total</th><th>Pagamento</th><th>Estado</th></tr></thead><tbody id="orders"><tr><td colspan="6" class="muted">Faça uma encomenda de teste no Carrinho.</td></tr></tbody></table></div></div>
+      <div class="card pad" style="margin-bottom:18px"><h3>Pedidos de contacto</h3><div style="overflow-x:auto"><table><thead><tr><th>Ref.</th><th>Nome / Empresa</th><th>Pedido</th><th>Qtd.</th><th>Recebido</th><th>Anexos</th></tr></thead><tbody id="leads"><tr><td colspan="6" class="muted">Faça um pedido de orçamento num produto ou use o formulário de contacto.</td></tr></tbody></table></div></div>
+      <div class="card pad"><h3>Excerto do script de sincronização (Python)</h3>
+<pre class="code"><span class="k">import</span> requests, mysql.connector
+<span class="k">from</span> decimal <span class="k">import</span> Decimal
+
+MARGEM = Decimal(<span class="s">"1.35"</span>)          <span class="c"># preço de venda = custo × 1,35</span>
+
+<span class="k">def</span> sync_fornecedor(db, url, token):
+    artigos = requests.get(url, headers={<span class="s">"Authorization"</span>: <span class="s">f"Bearer {token}"</span>}, timeout=30).json()
+    cur = db.cursor()
+    <span class="k">for</span> a <span class="k">in</span> artigos:
+        preco = (Decimal(str(a[<span class="s">"price"</span>])) * MARGEM).quantize(Decimal(<span class="s">"0.01"</span>))
+        cur.execute(<span class="s">"""
+            INSERT INTO produtos (sku, nome, categoria, custo, preco, stock)
+            VALUES (%s, %s, %s, %s, %s, %s)
+            ON DUPLICATE KEY UPDATE custo=VALUES(custo), preco=VALUES(preco), stock=VALUES(stock)
+        """</span>, (a[<span class="s">"sku"</span>], a[<span class="s">"name"</span>], a[<span class="s">"category"</span>], a[<span class="s">"price"</span>], preco, a[<span class="s">"stock"</span>]))
+    db.commit()
+    publicar_na_loja(cur)                <span class="c"># PUT /wp-json/wc/v3/products/batch</span>
+
+<span class="c"># crontab: todos os dias às 06:00</span>
+<span class="c"># 0 6 * * *  /usr/bin/python3 /opt/bds/sync.py</span></pre>
+      </div>
+    </div>
+  </section>
+</div>
+</main>
+
+<!-- =================== CONTACTO (sempre visível) =================== -->
+<section class="block" id="contacto">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Contacto</span><h2>Vamos criar <span class="gt">algo juntos?</span></h2><p class="lead">Conte-nos o que precisa. Recebe uma confirmação automática de imediato e a resposta da equipa em menos de 24 horas úteis.</p></div>
+    <div class="ct-grid">
+      <div class="ct-info">
+        <div class="card ci" data-tilt><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div><div><small>Morada</small>Rua do Casal 106, Rio Tinto (Gondomar)</div></div>
+        <div class="card ci" data-tilt><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div><div><small>Email</small>sales@bluedigital.store</div></div>
+        <div class="card ci" data-tilt><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></div><div><small>WhatsApp / Telefone</small>+351 910 377 586</div></div>
+        <div class="card ci" data-tilt><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8"/></svg></div><div><small>Redes sociais</small>@bluedigital.store</div></div>
+      </div>
+      <div class="card ct-form" id="ctBox">
+        <form id="ctForm" novalidate>
+          <div class="fgrid">
+            <div><label class="fl" for="fNome">Nome *</label><input type="text" id="fNome" required><div class="fhint" id="hNome"></div></div>
+            <div><label class="fl" for="fEmp">Empresa</label><input type="text" id="fEmp"></div>
+            <div><label class="fl" for="fEmail">Email *</label><input type="email" id="fEmail" required><div class="fhint" id="hEmail"></div></div>
+            <div><label class="fl" for="fTel">Telefone</label><input type="tel" id="fTel" placeholder="+351 9xx xxx xxx"></div>
+            <div><label class="fl" for="fServ">Serviço</label><select id="fServ"><option>Têxteis personalizados</option><option>Fardamento profissional</option><option>Brindes corporativos</option><option>Bordado</option><option>Gravação laser</option><option>Design gráfico & branding</option><option>Outro</option></select></div>
+            <div><label class="fl" for="fQtd">Quantidade estimada</label><select id="fQtd"><option>1 a 24</option><option>25 a 99</option><option>100 a 249</option><option>250 ou mais</option><option>Ainda não sei</option></select></div>
+            <div class="full"><label class="fl" for="fMsg">Mensagem *</label><textarea id="fMsg" required placeholder="Descreva o projeto: produtos, cores, prazos…"></textarea><div class="fhint" id="hMsg"></div></div>
+            <div class="full"><label class="fl" for="fFile">Logótipo ou referência (opcional)</label><input type="file" id="fFile" accept="image/*,.pdf,.ai,.svg" style="font-size:13px;color:var(--muted)"></div>
+            <label class="rgpd full"><input type="checkbox" id="fRgpd"> Aceito que a BDS trate os meus dados para responder a este pedido, de acordo com a <a href="#" data-legal="privacidade">Política de Privacidade</a> (RGPD).</label>
+            <div class="full fhint" id="hRgpd"></div>
+            <div class="full"><button class="btn pri" style="width:100%">Enviar pedido →</button></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="ft">
+  <div class="wrap ft-grid">
+    <div class="ft-brand">
+      <button class="brand" data-go="inicio" aria-label="Início"><img src="img/logo.webp" alt="BDS"><span class="wordmark"><span class="b">BLUE</span><span class="d">DIGITAL</span><span class="s">.STORE</span></span></button>
+      <p>Têxteis, brindes, fardamento e estampagens personalizadas. Produção própria em Rio Tinto.</p>
+      <div class="soc">
+        <a href="https://www.instagram.com/bluedigital.store/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+        <a href="https://www.facebook.com/BlueDigital.Store2021/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M14 8h3V4h-3c-2.8 0-4 1.7-4 4.3V10H7v4h3v7h4v-7h3l1-4h-4V8.6c0-.4.3-.6 1-.6z"/></svg></a>
+        <a href="https://wa.me/351910377586" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.6.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.6 11.6 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3c.2-.4.2-1 .1-1.3z"/></svg></a>
+        <a href="https://g.page/r/CSz-QF1Gh9y0EBM/review" target="_blank" rel="noopener" class="grev">★ Avalie-nos no Google</a>
+      </div>
+    </div>
+    <div class="ft-col"><h5>Loja</h5><button data-go="catalogo">Todos os produtos</button><button data-jump="promo">Promoções</button><button data-jump="kitsSec">Kits por setor</button><button data-go="servicos">Serviços e técnicas</button><button data-go="portfolio">Portfólio</button></div>
+    <div class="ft-col"><h5>Apoio ao cliente</h5><button data-quote>Pedir orçamento</button><button data-legal="envios">Envios, trocas e devoluções</button><button data-legal="termos">Termos e Condições</button><button data-legal="privacidade">Política de Privacidade</button><button data-legal="cookies">Política de Cookies</button><button data-legal="empresa">Informação legal</button></div>
+    <div class="ft-col"><h5>Contactos</h5>
+      <p>Rua do Casal 106<br>Rio Tinto, Gondomar</p>
+      <p><a href="mailto:sales@bluedigital.store">sales@bluedigital.store</a><br><a href="tel:+351910377586">+351 910 377 586</a><br><small class="faint">Chamada para a rede móvel nacional</small></p>
+      <p class="faint">Horário: <span class="ph">[a preencher]</span></p>
+      <a class="lrbadge" href="https://www.livroreclamacoes.pt/Inicio/" target="_blank" rel="noopener" aria-label="Livro de Reclamações Eletrónico"><span>Livro de</span><b>Reclamações</b></a>
+    </div>
+  </div>
+  <div class="wrap ft-ral">Resolução alternativa de litígios: em caso de litígio de consumo, pode recorrer ao CICAP – Centro de Informação de Consumo e Arbitragem do Porto (<a href="https://cicap.pt" target="_blank" rel="noopener">cicap.pt</a>). Mais informação em <a href="https://www.consumidor.gov.pt" target="_blank" rel="noopener">consumidor.gov.pt</a>. <button data-legal="reclamacoes">Saber mais</button></div>
+  <div class="wrap ft-bottom"><div>© 2026 BDS · Blue Digital Store — marca de Arrobas Enérgicas, Lda. · NIF <span class="ph">[a preencher]</span></div><div class="pays" id="payBadges"></div></div>
+</footer>
+
+<div class="lb" id="lb"><button class="btn gho sm" id="lbX">Fechar ✕</button><img id="lbImg" alt=""><p id="lbCap"></p></div>
+<div class="toast" id="toast"></div>
+<div class="ck" id="ck" role="dialog" aria-label="Aviso de cookies"><p><b>Cookies</b> Usamos apenas cookies essenciais ao funcionamento do site. Os tipos de letra são carregados a partir do Google Fonts. <a href="#" data-legal="cookies">Saber mais</a></p><div class="ck-b"><button class="btn gho sm" id="ckEss">Só essenciais</button><button class="btn pri sm" id="ckAll">Aceitar</button></div></div>
+<div class="qmodal" id="qmodal" aria-hidden="true"><div class="qbox">
+  <button class="btn gho sm qx" id="qX">Fechar ✕</button>
+  <span class="eyebrow">Orçamento rápido</span><h2 style="margin:6px 0 4px">Pedido de orçamento</h2>
+  <p class="muted" style="margin:0 0 16px">Resposta em até 24 horas úteis. O logótipo e a pré-visualização seguem juntos com o pedido.</p>
+  <div id="qSum"></div>
+  <form id="qForm" novalidate><div class="fgrid">
+    <div><label class="fl" for="qNome">Nome *</label><input type="text" id="qNome"></div>
+    <div><label class="fl" for="qEmp">Empresa</label><input type="text" id="qEmp"></div>
+    <div><label class="fl" for="qEmail">Email *</label><input type="email" id="qEmail"></div>
+    <div><label class="fl" for="qTel">Telefone / WhatsApp</label><input type="tel" id="qTel"></div>
+    <div class="full"><label class="fl" for="qMsg">Observações</label><textarea id="qMsg" placeholder="Prazo pretendido, tamanhos, dúvidas…" style="min-height:70px"></textarea></div>
+    <label class="rgpd full"><input type="checkbox" id="qRgpd"> Aceito que a BDS trate os meus dados para responder a este pedido, de acordo com a <a href="#" data-legal="privacidade">Política de Privacidade</a>.</label>
+    <div class="full fhint err" id="qErr"></div>
+    <div class="full"><button class="btn quick" style="width:100%">Enviar pedido de orçamento</button></div>
+  </div></form>
+</div></div>
+<a class="wa" href="https://wa.me/351910377586?text=Ol%C3%A1!%20Gostaria%20de%20pedir%20um%20or%C3%A7amento." target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" width="30" height="30" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.6.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.6 11.6 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3z"/></svg></a>
+
+<div class="rv" id="rv"><button class="rv-nav" id="rvPrev" aria-label="Anterior">‹</button><div class="rv-panel" id="rvPanel"></div><button class="rv-nav" id="rvNext" aria-label="Seguinte">›</button><button class="btn gho sm rv-x" id="rvX">Fechar ✕</button></div>
+<div class="vmodal" id="vmodal"><div id="vmBody" style="width:100%;display:flex;justify-content:center"></div><p class="note2">Simulação do Smart Checkout da Viva. No site real, o cliente é redirecionado para a página segura da Viva, já com o logótipo e a cor da BDS.</p><button class="btn gho sm" id="vmX">Cancelar</button></div>
+
+<script src="vendor/three.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

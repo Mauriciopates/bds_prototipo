@@ -1,0 +1,16 @@
+PASTA DE VÍDEOS (Reels)
+
+1. Copie para aqui os vídeos (.mp4 ou .webm), de preferência na vertical (9:16).
+2. Abra o ficheiro script.js e, logo no início, acrescente uma linha por vídeo na lista VIDEOS:
+
+   const VIDEOS=[
+     {src:'videos/polos-rimo.mp4', cap:'Polos bordados para a equipa RIMO #bds-polo'},
+     {src:'videos/coletes.mp4',    cap:'Coletes com a marca nas costas #bds-colete', cor:'#111827', tecnica:'DTF'},
+   ];
+
+3. A hashtag na legenda liga o vídeo ao produto (o botão "Quero um assim" abre o personalizador já com esse produto):
+   #bds-polo  #bds-tshirt  #bds-sweat  #bds-colete  #bds-camisa  #bds-avental
+   #bds-bone  #bds-saco  #bds-tote  #bds-caneca  #bds-garrafa  #bds-caneta
+
+Nomes de ficheiro sem espaços nem acentos funcionam melhor (ex.: polos-rimo.mp4).
+Os vídeos aparecem primeiro, antes das fotografias de exemplo.
